@@ -1,0 +1,41 @@
+# Test every push
+- type: parallel
+  name: test
+  steps:
+  - type: serial
+    name: testing
+    steps:
+      - service: testing
+        command: /bin/sh ./ci/ci-test.sh
+
+# Deploy only if pushed to an ENV
+- type: serial
+  name: deploy-dev
+  tag: dev
+  steps:
+    - service: deploy-dev
+      command: aws s3 ls s3://dev.minerhub.co
+    - service: deploy-dev
+      command: /bin/sh /deploy/ci/ci-deploy.sh
+- type: serial
+  name: deploy-stg
+  tag: stg
+  steps:
+    - service: deploy-stg
+      command: aws s3 ls s3://stg.minerhub.co
+    - service: deploy-stg
+      command: /bin/sh /deploy/ci/ci-deploy.sh
+- type: serial
+  name: deploy-prd
+  tag: prd
+  steps:
+    - service: deploy-prd
+      command: aws s3 ls s3://minerhub.co
+    - service: deploy-prd
+      command: /bin/sh /deploy/ci/ci-deploy.sh
+
+# Validate only after deploying
+- name: validate
+  tag: "^(stg|dev|prd/.*)$"
+  service: validation
+  command: /bin/sh ./ci/ci-validate.sh

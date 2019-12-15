@@ -1,0 +1,8 @@
+FROM alpine
+
+COPY . .
+
+RUN ls -al ./ci
+RUN apk update && apk add curl
+
+ENTRYPOINT [ "/bin/sh", "./ci/ci-validate.sh" ]

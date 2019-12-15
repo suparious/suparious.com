@@ -1,0 +1,7 @@
+FROM codeship/aws-deployment
+
+WORKDIR /deploy
+
+COPY . /deploy
+
+ENTRYPOINT [ "/bin/sh", "./ci/ci-deploy.sh" ]

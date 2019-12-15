@@ -1,0 +1,13 @@
+FROM golang:alpine
+
+# Configure dependencies
+RUN apk add git curl make gcc
+RUN go get -u golang.org/x/lint/golint
+RUN go get github.com/aws/aws-sdk-go/service/dynamodb
+
+# Bring in our whole repo
+WORKDIR /go
+COPY . /go
+
+# Execute the script
+ENTRYPOINT [ "/bin/sh", "./ci/ci-test.sh" ]

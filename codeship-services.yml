@@ -1,0 +1,37 @@
+testing:
+  build:
+    image: testing_phase
+    dockerfile: Dockerfile.test
+  environment:
+    ENV_VAR: test
+
+deploy-dev:
+  image: codeship/aws-deployment
+  encrypted_env_file: aws_deployment.dev.encrypted
+  environment:
+    ENV_VAR: deploy-dev
+  volumes:
+    - ./:/deploy
+
+deploy-stg:
+  image: codeship/aws-deployment
+  encrypted_env_file: aws_deployment.dev.encrypted
+  environment:
+    ENV_VAR: deploy-stg
+  volumes:
+    - ./:/deploy
+
+deploy-prd:
+  image: codeship/aws-deployment
+  encrypted_env_file: aws_deployment.dev.encrypted
+  environment:
+    ENV_VAR: deploy-prd
+  volumes:
+    - ./:/deploy
+
+validation:
+  build:
+    image: validation_phase
+    dockerfile: Dockerfile.validate
+  environment:
+    ENV_VAR: validate
