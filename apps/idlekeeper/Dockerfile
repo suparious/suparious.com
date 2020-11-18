@@ -1,6 +1,6 @@
 # The official install talks about Fedora packages, so let's see
 # if Centos is close enough...
-FROM centos:7
+FROM centos:8
 
 # We will need Git to pull the repo
 RUN yum -y -q install wget
@@ -70,6 +70,6 @@ RUN ln -s $APP_FOLDER/t-rex /usr/local/bin/t-rex && \
 RUN adduser $APP_USER
 USER $APP_USER
 
-
+ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/compat
 
 CMD [ "t-rex", "-c", "config" ]
