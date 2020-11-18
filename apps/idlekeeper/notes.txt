@@ -1,0 +1,10 @@
+docker run -d \
+  -p 5000:5000 \
+  --restart=always \
+  --name registry \
+  registry:2
+
+docker build -t ds-cuda-dev:5000/docker-fargate-gpu-test --rm -f Dockerfile .
+ # ds-cuda-dev:5000/docker-fargate-gpu-test:latest
+
+docker run -it ds-cuda-dev:5000/docker-fargate-gpu-test

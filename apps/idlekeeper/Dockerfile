@@ -1,100 +1,75 @@
-FROM amazonlinux
+# The official install talks about Fedora packages, so let's see
+# if Centos is close enough...
+FROM centos:7
 
-LABEL version="1.0"
-LABEL author="Jay Thomas"
-LABEL system="Python 3.6, Amazon AMI 2"
-LABEL description="Grid Sort Batch Tools"
+# We will need Git to pull the repo
+RUN yum -y -q install wget
 
-ENV cloudwatch=true
+# The packages mentioned in the INSTALL phase, except:
+# jansson-devel - We're going to build our own since the version 2.4.x doesn't have json_array_foreach
+# make - Added it because Centos doesn't have it even after getting autoconf/automake
+#RUN yum -y -q install gcc gcc-c++ make wget autoconf automake install openssl-devel libcurl-devel zlib-devel
 
-ARG env
+# Create a user to do the build
+ENV BUILD_FOLDER=/minerbuild
+ENV APP_FOLDER=/app
+ENV APP_USER=minerbuilder
+ENV TREX_VERSION=0.18.9
+ENV CUDA_VERSION=10.0
 
-RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 && \
-curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/7fa2af80.pub | sed '/^Version/d' > /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA && \
-    echo "$NVIDIA_GPGKEY_SUM  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c --strict -
+RUN adduser $APP_USER && \
+    mkdir $BUILD_FOLDER && \
+    chown $APP_USER.users $BUILD_FOLDER
 
-COPY cuda.repo /etc/yum.repos.d/cuda.repo
+# Now switch to the builder and check out the git repo
+USER $APP_USER
 
-ENV CUDA_VERSION 10.2.89
-ENV CUDA_PKG_VERSION 10-2-$CUDA_VERSION-1
-# For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
+# Clone from the git repo
+RUN cd $BUILD_FOLDER && \
+    wget https://github.com/trexminer/T-Rex/releases/download/"$TREX_VERSION"/t-rex-"$TREX_VERSION"-linux-cuda"$CUDA_VERSION".tar.gz && \
+    tar xzvf t-rex-$TREX_VERSION-linux-cuda"$CUDA_VERSION".tar.gz
 
-RUN yum update -y
-RUN yum install -y \
-            python3.x86_64 \
-            libSM-1.2.2-2.amzn2.x86_64 \
-            libXrender-0.9.10-1.amzn2.0.2.x86_64 \
-            libXext-1.3.3-3.amzn2.0.2.x86_64 \
-            python-setuptools \
-            postgresql.x86_64 \
-            aws-cli \
-            util-linux-2.30.2-2.amzn2.0.4.x86_64 \
-            gzip \
-            cuda-cudart-$CUDA_PKG_VERSION \
-            cuda-compat-10-2 \
-            libgomp \
-            && \
-                ln -s cuda-10.2 /usr/local/cuda && \
-                rm -rf /var/cache/yum/*
+ENV TREX_FOLDER=$BUILD_FOLDER
 
-# nvidia-docker 1.0
-RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
-    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+# Copy the binary to the /app folder
 
-ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
-ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
-ENV PYTHONPATH /
+USER root
 
-# nvidia-container-runtime
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-ENV NVIDIA_REQUIRE_CUDA "cuda>=10.2 brand=tesla,driver>=384,driver<385 brand=tesla,driver>=396,driver<397 brand=tesla,driver>=410,driver<411 brand=tesla,driver>=418,driver<419"
+RUN mkdir $APP_FOLDER && \
+    chown $APP_USER.users $APP_FOLDER && \
+    cp $TREX_FOLDER/t-rex $APP_FOLDER
 
-COPY requirements.txt /opt/requirements.txt
+# Switch to a multistage build with the runtime image
+FROM nvidia/cuda:10.2-runtime-centos7
 
-RUN pip3 install --upgrade pip && pip3 install -r /opt/requirements.txt --use-feature=2020-resolver
+# Redefine the app user and folder - note app folder must be the same as the first stage
+ENV APP_FOLDER=/app
+ENV APP_USER=miner
 
-ARG REDSHIFT_PASSWORD
+# Copy the stuff that we built
+COPY --from=0 $APP_FOLDER $APP_FOLDER
+COPY --from=0 /usr/local/lib /usr/local/lib
 
-ENV RUNTIME_ENVIRONMENT=${RUNTIME_ENVIRONMENT:-local}
+# Get the non-devel versions of the libraries that we need
+RUN yum -y -q install openssl libcurl zlib libgomp &&  \
+    yum clean all && \
+    rm -rf /var/cache/yum
 
-ENV REDIS_HOST=${REDIS_HOST:-}
-ENV REDIS_PORT=${REDIS_PORT}
-ENV REDIS_DB=${REDIS_DB}
-ENV REDIS_ENCODING=${REDIS_ENCODING}
-ENV REDIS_DECODE_RESPONSES=${REDIS_DECODE_RESPONSES}
+# Load the Jansson library that's now built
+RUN echo /usr/local/lib > /etc/ld.so.conf.d/userlocal.conf && \
+    ldconfig
 
-ENV CLOUDWATCH_LOG_GROUP=${CLOUDWATCH_LOG_GROUP}
-ENV CLOUDWATCH_APPLICATION_NAME=${CLOUDWATCH_APPLICATION_NAME}
+# Copy the rendering configuration
+COPY config $APP_FOLDER
 
-ENV REDSHIFT_HOST_NAME=${REDSHIFT_HOST_NAME}
-ENV REDSHIFT_PORT_NUM=${REDSHIFT_PORT_NUM}
-ENV REDSHIFT_DB_NAME=${REDSHIFT_DB_NAME}
-ENV REDSHIFT_IAM_ROLE=${REDSHIFT_IAM_ROLE}
-ENV REDSHIFT_USER=${REDSHIFT_USER}
-ENV REDSHIFT_PASSWORD=${REDSHIFT_PASSWORD}
+# Symlink the app to /usr/local/bin
+RUN ln -s $APP_FOLDER/t-rex /usr/local/bin/t-rex && \
+    chown -R root.root $APP_FOLDER
 
-ENV S3_READ_INVENTORY_BUCKET_NAME=${S3_READ_INVENTORY_BUCKET_NAME}
-ENV S3_READ_INVENTORY_KEY=${S3_READ_INVENTORY_KEY}
-ENV S3_READ_INVENTORY_INVENTORY_FILE_PREFIX=${S3_READ_INVENTORY_INVENTORY_FILE_PREFIX}
-ENV S3_READ_BLACKLIST_BUCKET_NAME=${S3_READ_BLACKLIST_BUCKET_NAME}
-ENV S3_READ_BLACKLIST_KEY=${S3_READ_BLACKLIST_KEY}
-ENV S3_READ_BLACKLIST_FILE=${S3_READ_BLACKLIST_FILE}
-ENV S3_WRITE_BUCKET_NAME=${S3_WRITE_BUCKET_NAME}
-ENV S3_WRITE_KEY=${S3_WRITE_KEY}
+# Recreate and switch to the app user for this build
+RUN adduser $APP_USER
+USER $APP_USER
 
-ENV DIS_RECOV_BUCKET=${DIS_RECOV_BUCKET}
 
-ENV CLOUDWATCH_LOG_GROUP_CLTV=${CLTV_CLOUDWATCH_LOG_GROUP}
-ENV SNSARN_CLTV=${CLTV_SNS_ARN}
-ENV SLACK_CHANNEL_CLTV=${CLTV_SLACK_CHANNEL}
 
-RUN mkdir /tmp/output
-
-ARG APP_DIR=/recommender
-COPY . $APP_DIR
-
-ENV PYTHONPATH $APP_DIR/lib/python3/src
-WORKDIR $APP_DIR
-CMD ["bash"]
-
+CMD [ "t-rex", "-c", "config" ]
