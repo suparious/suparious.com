@@ -40,7 +40,7 @@ RUN mkdir $APP_FOLDER && \
     cp $TREX_FOLDER/t-rex $APP_FOLDER
 
 # Switch to a multistage build with the runtime image
-FROM nvidia/cuda:10.2-runtime-centos8
+FROM nvidia/cuda:10.2-base-centos8
 
 # Redefine the app user and folder - note app folder must be the same as the first stage
 ENV APP_FOLDER=/app

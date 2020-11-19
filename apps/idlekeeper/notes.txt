@@ -7,4 +7,7 @@ docker run -d \
 docker build -t ds-cuda-dev:5000/docker-fargate-gpu-test --rm -f Dockerfile .
  # ds-cuda-dev:5000/docker-fargate-gpu-test:latest
 
-docker run -it ds-cuda-dev:5000/docker-fargate-gpu-test
+sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+sudo docker run --rm --gpus all ds-cuda-dev:5000/docker-fargate-gpu-test
+
+sudo docker run --rm --gpus all --entrypoint bash ds-cuda-dev:5000/docker-fargate-gpu-test
