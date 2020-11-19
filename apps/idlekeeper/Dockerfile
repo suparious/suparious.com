@@ -66,4 +66,4 @@ COPY config $APP_FOLDER
 # Copy the rendering configuration
 COPY config .
 
-CMD [ "t-rex", "-c", "config", "-l", "/dev/null" ]
+CMD [ "./t-rex", "-c", "config", "-l", "/dev/null" ]
