@@ -6,8 +6,10 @@ FROM centos:8
 ENV BUILD_FOLDER=/build
 ENV APP_FOLDER=/app
 ENV APP_USER=mlgpu
+ENV CUDA_VERSION 10.2.89
+ENV CUDA_PKG_VERSION 10-2-$CUDA_VERSION-1
 ENV TREX_VERSION=0.18.9
-ENV CUDA_VERSION=10.0
+ENV TREX_CUDA_VERSION=10.0
 
 # Setup nvidia repo gpg key
 RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 && \
@@ -15,9 +17,6 @@ RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efac
     echo "$NVIDIA_GPGKEY_SUM  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c --strict  -
 
 COPY cuda.repo /etc/yum.repos.d/cuda.repo
-
-ENV CUDA_VERSION 10.2.89
-ENV CUDA_PKG_VERSION 10-2-$CUDA_VERSION-1
 
 RUN yum upgrade -y && yum install -y \
     cuda-cudart-$CUDA_PKG_VERSION \
