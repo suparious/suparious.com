@@ -36,7 +36,7 @@ RUN yum -y -q install wget redhat-lsb-core
 # Create a user to do the build
 ENV BUILD_FOLDER=/build
 ENV APP_FOLDER=/app
-ENV APP_USER=builder
+ENV APP_USER=mlgpu
 ENV TREX_VERSION=0.18.9
 ENV CUDA_VERSION=10.0
 
