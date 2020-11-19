@@ -63,7 +63,7 @@ RUN mkdir $APP_FOLDER && \
     cp $TREX_FOLDER/t-rex $APP_FOLDER
 
 # Get the non-devel versions of the libraries that we need
-RUN yum -y -q install openssl libcurl zlib libgomp &&  \
+RUN yum -y -q install openssl zlib libgomp &&  \
     yum clean all && \
     rm -rf /var/cache/yum
 
