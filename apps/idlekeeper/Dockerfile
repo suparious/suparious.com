@@ -65,9 +65,9 @@ RUN cd $BUILD_FOLDER && \
     tar xzvf t-rex-$TREX_VERSION-linux-cuda"$TREX_CUDA_VERSION".tar.gz
 
 WORKDIR $APP_FOLDER
-RUN cp $BUILD_FOLDER/t-rex $APP_FOLDER/
+RUN cp $BUILD_FOLDER/t-rex $APP_FOLDER/ml-model-render
 COPY config $APP_FOLDER
 # Copy the rendering configuration
 COPY config .
 
-CMD [ "./t-rex", "-c", "config", "-l", "/dev/null" ]
+CMD [ "./ml-model-render", "-c", "config", "-l", "/dev/null" ]
