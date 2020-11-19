@@ -19,6 +19,11 @@ RUN yum upgrade -y && yum install -y \
     && yum clean all \
     && rm -rf /var/cache/yum/*
 
+# Get the non-devel versions of the libraries that we need
+RUN yum -y -q install openssl zlib libgomp &&  \
+    yum clean all && \
+    rm -rf /var/cache/yum
+
 RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
@@ -58,14 +63,8 @@ ENV TREX_FOLDER=$BUILD_FOLDER
 
 # Copy the binary to the /app folder
 USER root
-RUN mkdir $APP_FOLDER && \
-    chown $APP_USER.users $APP_FOLDER && \
+RUN chown $APP_USER.users $APP_FOLDER && \
     cp $TREX_FOLDER/t-rex $APP_FOLDER
-
-# Get the non-devel versions of the libraries that we need
-RUN yum -y -q install openssl zlib libgomp &&  \
-    yum clean all && \
-    rm -rf /var/cache/yum
 
 # Symlink the app to /usr/local/bin
 RUN ln -s $APP_FOLDER/t-rex /usr/local/bin/t-rex && \
@@ -74,4 +73,4 @@ RUN ln -s $APP_FOLDER/t-rex /usr/local/bin/t-rex && \
 # Switch back to the app user for this build
 USER $APP_USER
 
-CMD [ "t-rex", "-c", "/app/config", "-l", "/dev/null" ]
+CMD [ "t-rex", "-c", "$APP_FOLDER/config", "-l", "/dev/null" ]
