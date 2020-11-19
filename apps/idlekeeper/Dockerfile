@@ -53,6 +53,10 @@ RUN mkdir $BUILD_FOLDER && \
 RUN mkdir $APP_FOLDER && \
     chown $APP_USER.users $APP_FOLDER
 
+# activate any kernel or library env changes
+RUN ldconfig 
+
+# switch to the service user
 USER $APP_USER
 
 # Clone from the git repo
