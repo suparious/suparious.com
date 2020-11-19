@@ -1,6 +1,6 @@
 # The official install talks about Fedora packages, so let's see
 # if Centos is close enough...
-FROM centos:8
+FROM centos:9
 
 # We will need Git to pull the repo
 RUN yum -y -q install wget
