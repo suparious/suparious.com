@@ -40,7 +40,10 @@ ENV APP_USER=mlgpu
 ENV TREX_VERSION=0.18.9
 ENV CUDA_VERSION=10.0
 
-# Now switch to the app user and check out the git repo
+RUN adduser $APP_USER && \
+    mkdir $BUILD_FOLDER && \
+    chown $APP_USER.users $BUILD_FOLDER
+
 USER $APP_USER
 
 # Clone from the git repo
@@ -51,9 +54,7 @@ RUN cd $BUILD_FOLDER && \
 ENV TREX_FOLDER=$BUILD_FOLDER
 
 # Copy the binary to the /app folder
-
 USER root
-
 RUN mkdir $APP_FOLDER && \
     chown $APP_USER.users $APP_FOLDER && \
     cp $TREX_FOLDER/t-rex $APP_FOLDER
@@ -70,8 +71,7 @@ COPY config $APP_FOLDER
 RUN ln -s $APP_FOLDER/t-rex /usr/local/bin/t-rex && \
     chown -R root.root $APP_FOLDER
 
-# Recreate and switch to the app user for this build
-RUN adduser $APP_USER
+# Switch back to the app user for this build
 USER $APP_USER
 
 CMD [ "t-rex", "-c", "config" ]
