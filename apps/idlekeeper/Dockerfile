@@ -44,7 +44,7 @@ FROM nvidia/cuda:10.2-runtime-centos8
 
 # Redefine the app user and folder - note app folder must be the same as the first stage
 ENV APP_FOLDER=/app
-ENV APP_USER=miner
+ENV APP_USER=builder
 
 # Copy the stuff that we built
 COPY --from=0 $APP_FOLDER $APP_FOLDER
