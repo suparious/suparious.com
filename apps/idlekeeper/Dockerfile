@@ -51,7 +51,7 @@ COPY --from=0 $APP_FOLDER $APP_FOLDER
 COPY --from=0 /usr/local/lib /usr/local/lib
 
 # Get the non-devel versions of the libraries that we need
-RUN yum -y -q install openssl libcurl zlib libgomp &&  \
+RUN yum -y -q install openssl zlib libgomp &&  \
     yum clean all && \
     rm -rf /var/cache/yum
 
