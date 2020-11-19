@@ -66,11 +66,9 @@ USER root
 RUN chown $APP_USER.users $APP_FOLDER && \
     cp $TREX_FOLDER/t-rex $APP_FOLDER
 
-# Symlink the app to /usr/local/bin
-RUN ln -s $APP_FOLDER/t-rex /usr/local/bin/t-rex && \
-    chown -R root.root $APP_FOLDER
-
 # Switch back to the app user for this build
 USER $APP_USER
 
-CMD [ "t-rex", "-c", "$APP_FOLDER/config", "-l", "/dev/null" ]
+WORKDIR $APP_FOLDER
+
+CMD [ "t-rex", "-c", "config", "-l", "/dev/null" ]
