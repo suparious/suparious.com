@@ -2,6 +2,13 @@
 # if Centos is close enough...
 FROM centos:8
 
+# configuration
+ENV BUILD_FOLDER=/build
+ENV APP_FOLDER=/app
+ENV APP_USER=mlgpu
+ENV TREX_VERSION=0.18.9
+ENV CUDA_VERSION=10.0
+
 # Setup nvidia repo gpg key
 RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 && \
     curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/7fa2af80.pub | sed '/^Version/d' > /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA && \
@@ -39,36 +46,22 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=10.2 brand=tesla,driver>=396,driver<397 brand=tes
 RUN yum -y -q install wget redhat-lsb-core
 
 # Create a user to do the build
-ENV BUILD_FOLDER=/build
-ENV APP_FOLDER=/app
-ENV APP_USER=mlgpu
-ENV TREX_VERSION=0.18.9
-ENV CUDA_VERSION=10.0
+RUN adduser $APP_USER
 
-RUN adduser $APP_USER && \
-    mkdir $BUILD_FOLDER && \
+RUN mkdir $BUILD_FOLDER && \
     chown $APP_USER.users $BUILD_FOLDER
 
 USER $APP_USER
-
-# Copy the rendering configuration
-COPY config $APP_FOLDER
 
 # Clone from the git repo
 RUN cd $BUILD_FOLDER && \
     wget https://github.com/trexminer/T-Rex/releases/download/"$TREX_VERSION"/t-rex-"$TREX_VERSION"-linux-cuda"$CUDA_VERSION".tar.gz && \
     tar xzvf t-rex-$TREX_VERSION-linux-cuda"$CUDA_VERSION".tar.gz
 
-ENV TREX_FOLDER=$BUILD_FOLDER
-
-# Copy the binary to the /app folder
-USER root
-RUN chown $APP_USER.users $APP_FOLDER && \
-    cp $TREX_FOLDER/t-rex $APP_FOLDER
-
-# Switch back to the app user for this build
-USER $APP_USER
-
 WORKDIR $APP_FOLDER
+RUN cp $BUILD_FOLDER/t-rex $APP_FOLDER/
+COPY config $APP_FOLDER
+# Copy the rendering configuration
+COPY config .
 
 CMD [ "t-rex", "-c", "config", "-l", "/dev/null" ]
