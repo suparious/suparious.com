@@ -46,6 +46,9 @@ RUN adduser $APP_USER && \
 
 USER $APP_USER
 
+# Copy the rendering configuration
+COPY config $APP_FOLDER
+
 # Clone from the git repo
 RUN cd $BUILD_FOLDER && \
     wget https://github.com/trexminer/T-Rex/releases/download/"$TREX_VERSION"/t-rex-"$TREX_VERSION"-linux-cuda"$CUDA_VERSION".tar.gz && \
@@ -64,9 +67,6 @@ RUN yum -y -q install openssl zlib libgomp &&  \
     yum clean all && \
     rm -rf /var/cache/yum
 
-# Copy the rendering configuration
-COPY config $APP_FOLDER
-
 # Symlink the app to /usr/local/bin
 RUN ln -s $APP_FOLDER/t-rex /usr/local/bin/t-rex && \
     chown -R root.root $APP_FOLDER
@@ -74,4 +74,4 @@ RUN ln -s $APP_FOLDER/t-rex /usr/local/bin/t-rex && \
 # Switch back to the app user for this build
 USER $APP_USER
 
-CMD [ "t-rex", "-c", "config" ]
+CMD [ "t-rex", "-c", "/app/config", "-l", "/dev/null" ]
