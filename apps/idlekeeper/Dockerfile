@@ -1,9 +1,9 @@
 # The official install talks about Fedora packages, so let's see
 # if Centos is close enough...
-FROM centos:9
+FROM centos:8
 
 # We will need Git to pull the repo
-RUN yum -y -q install wget
+RUN yum -y -q install wget redhat-lsb-core
 
 # The packages mentioned in the INSTALL phase, except:
 # jansson-devel - We're going to build our own since the version 2.4.x doesn't have json_array_foreach
@@ -11,9 +11,9 @@ RUN yum -y -q install wget
 #RUN yum -y -q install gcc gcc-c++ make wget autoconf automake install openssl-devel libcurl-devel zlib-devel
 
 # Create a user to do the build
-ENV BUILD_FOLDER=/minerbuild
+ENV BUILD_FOLDER=/build
 ENV APP_FOLDER=/app
-ENV APP_USER=minerbuilder
+ENV APP_USER=builder
 ENV TREX_VERSION=0.18.9
 ENV CUDA_VERSION=10.0
 
@@ -40,7 +40,7 @@ RUN mkdir $APP_FOLDER && \
     cp $TREX_FOLDER/t-rex $APP_FOLDER
 
 # Switch to a multistage build with the runtime image
-FROM nvidia/cuda:10.2-runtime-centos7
+FROM nvidia/cuda:10.2-runtime-centos8
 
 # Redefine the app user and folder - note app folder must be the same as the first stage
 ENV APP_FOLDER=/app
