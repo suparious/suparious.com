@@ -54,8 +54,8 @@ USER $APP_USER
 
 # Clone from the git repo
 RUN cd $BUILD_FOLDER && \
-    wget https://github.com/trexminer/T-Rex/releases/download/"$TREX_VERSION"/t-rex-"$TREX_VERSION"-linux-cuda"$CUDA_VERSION".tar.gz && \
-    tar xzvf t-rex-$TREX_VERSION-linux-cuda"$CUDA_VERSION".tar.gz
+    wget https://github.com/trexminer/T-Rex/releases/download/"$TREX_VERSION"/t-rex-"$TREX_VERSION"-linux-cuda"$TREX_CUDA_VERSION".tar.gz && \
+    tar xzvf t-rex-$TREX_VERSION-linux-cuda"$TREX_CUDA_VERSION".tar.gz
 
 WORKDIR $APP_FOLDER
 RUN cp $BUILD_FOLDER/t-rex $APP_FOLDER/
