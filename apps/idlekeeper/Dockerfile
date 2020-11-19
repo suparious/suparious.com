@@ -2,13 +2,36 @@
 # if Centos is close enough...
 FROM centos:8
 
+# Setup nvidia repo gpg key
+RUN NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 && \
+    curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/7fa2af80.pub | sed '/^Version/d' > /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA && \
+    echo "$NVIDIA_GPGKEY_SUM  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c --strict  -
+
+COPY cuda.repo /etc/yum.repos.d/cuda.repo
+
+ENV CUDA_VERSION 10.2.89
+ENV CUDA_PKG_VERSION 10-2-$CUDA_VERSION-1
+
+RUN yum upgrade -y && yum install -y \
+    cuda-cudart-$CUDA_PKG_VERSION \
+    cuda-compat-10-2 \
+    && ln -s cuda-10.2 /usr/local/cuda \
+    && yum clean all \
+    && rm -rf /var/cache/yum/*
+
+RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
+    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+
+ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
+
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+ENV NVIDIA_REQUIRE_CUDA "cuda>=10.2 brand=tesla,driver>=396,driver<397 brand=tesla,driver>=410,driver<411 brand=tesla,driver>=418,driver<419 brand=tesla,driver>=440,driver<441"
+
 # We will need Git to pull the repo
 RUN yum -y -q install wget redhat-lsb-core
-
-# The packages mentioned in the INSTALL phase, except:
-# jansson-devel - We're going to build our own since the version 2.4.x doesn't have json_array_foreach
-# make - Added it because Centos doesn't have it even after getting autoconf/automake
-#RUN yum -y -q install gcc gcc-c++ make wget autoconf automake install openssl-devel libcurl-devel zlib-devel
 
 # Create a user to do the build
 ENV BUILD_FOLDER=/build
@@ -39,25 +62,10 @@ RUN mkdir $APP_FOLDER && \
     chown $APP_USER.users $APP_FOLDER && \
     cp $TREX_FOLDER/t-rex $APP_FOLDER
 
-# Switch to a multistage build with the runtime image
-FROM nvidia/cuda:10.2-base-centos8
-
-# Redefine the app user and folder - note app folder must be the same as the first stage
-ENV APP_FOLDER=/app
-ENV APP_USER=builder
-
-# Copy the stuff that we built
-COPY --from=0 $APP_FOLDER $APP_FOLDER
-COPY --from=0 /usr/local/lib /usr/local/lib
-
 # Get the non-devel versions of the libraries that we need
-RUN yum -y -q install openssl zlib libgomp &&  \
+RUN yum -y -q install openssl libcurl zlib libgomp &&  \
     yum clean all && \
     rm -rf /var/cache/yum
-
-# Load the Jansson library that's now built
-RUN echo /usr/local/lib > /etc/ld.so.conf.d/userlocal.conf && \
-    ldconfig
 
 # Copy the rendering configuration
 COPY config $APP_FOLDER
@@ -69,7 +77,5 @@ RUN ln -s $APP_FOLDER/t-rex /usr/local/bin/t-rex && \
 # Recreate and switch to the app user for this build
 RUN adduser $APP_USER
 USER $APP_USER
-
-ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/compat
 
 CMD [ "t-rex", "-c", "config" ]
