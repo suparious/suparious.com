@@ -40,11 +40,7 @@ ENV APP_USER=mlgpu
 ENV TREX_VERSION=0.18.9
 ENV CUDA_VERSION=10.0
 
-RUN adduser $APP_USER && \
-    mkdir $BUILD_FOLDER && \
-    chown $APP_USER.users $BUILD_FOLDER
-
-# Now switch to the builder and check out the git repo
+# Now switch to the app user and check out the git repo
 USER $APP_USER
 
 # Clone from the git repo
