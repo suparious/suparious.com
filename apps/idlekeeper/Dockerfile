@@ -50,6 +50,9 @@ RUN adduser $APP_USER
 RUN mkdir $BUILD_FOLDER && \
     chown $APP_USER.users $BUILD_FOLDER
 
+RUN mkdir $APP_FOLDER && \
+    chown $APP_USER.users $APP_FOLDER
+
 USER $APP_USER
 
 # Clone from the git repo
