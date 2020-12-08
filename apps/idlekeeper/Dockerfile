@@ -20,6 +20,10 @@ COPY cuda.repo /etc/yum.repos.d/cuda.repo
 
 RUN yum upgrade -y && yum install -y \
     cuda-cudart-$CUDA_PKG_VERSION \
+    cuda-nvrtc-$CUDA_PKG_VERSION \
+    cuda-libraries-$CUDA_PKG_VERSION \
+    cuda-tools-$CUDA_PKG_VERSION \
+    cuda-nvcc-$CUDA_PKG_VERSION \
     cuda-compat-10-2 \
     && ln -s cuda-10.2 /usr/local/cuda \
     && yum clean all \
