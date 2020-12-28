@@ -51,3 +51,5 @@ sudo systemctl restart docker
 
 # test
 sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+
+# https://s3-us-west-2.amazonaws.com/suparious.com-git/suparious.com-master.zip
