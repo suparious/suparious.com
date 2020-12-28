@@ -1,7 +1,7 @@
 ## exLight Debian
 sudo ifconfig enp2s0f0 down
 dpkg -i code_1.52.1-1608136922_amd64.deb
-#main contrib non-free
+sudo sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list
 sudo apt-get --allow-unauthenticated update
 sudo apt install git
 ssh-keygen -b 4096
@@ -37,8 +37,17 @@ sudo su - ${USER}
 id -nG
 docker ps
 
-# time for nvidia
-cd ~/Downloads
-wget https://us.download.nvidia.com/XFree86/Linux-x86_64/450.80.02/NVIDIA-Linux-x86_64-450.80.02.run
-chmod +x NVIDIA-Linux-x86_64-450.80.02.run
-sudo sh NVIDIA-Linux-x86_64-450.80.02.run
+# nvidia-docker
+#distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+#   && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
+#   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/debian10/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+sudo apt-get update
+sudo apt-get install -y nvidia-docker2
+sudo ln -s /sbin/ldconfig /sbin/ldconfig.real
+sudo systemctl restart docker
+
+# test
+sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
