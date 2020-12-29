@@ -61,12 +61,9 @@ sudo ln -s /sbin/ldconfig /sbin/ldconfig.real
 sudo docker run --rm --gpus all nvidia/cuda:10.2-base nvidia-smi
 
 # build
-cd work/base
-
-mkdir build && cd build
-wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/Dockerfile
-wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/cuda.repo
-wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/config
+cd /home/user/work/suparious.com/apps/idlekeeper/base
+docker build . -t ds-cuda-base:latest
+cd ../build
 docker build . -t ml-model-render:latest
 
 # run
@@ -74,4 +71,4 @@ screen
 docker run --rm --gpus all ml-model-render
 
 # troubleshooting
-docker run --rm --gpus all -it --entrypoint="bash" ml-model-render
+docker run --rm --gpus all -it --entrypoint bash ml-model-render
