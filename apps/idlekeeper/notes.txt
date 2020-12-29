@@ -12,3 +12,7 @@ sudo docker run --rm --gpus all ds-cuda-dev:5000/docker-fargate-gpu-test
 
 sudo docker run --rm --gpus all --entrypoint bash ds-cuda-dev:5000/docker-fargate-gpu-test
 sudo docker run -it --rm --gpus all --entrypoint bash ds-cuda-dev:5000/docker-fargate-gpu-test
+
+docker rm $(docker ps -a -q)
+docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+docker system df
