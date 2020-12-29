@@ -78,3 +78,6 @@ docker build . -t ml-model-render:latest
 # run
 screen
 docker run --rm --gpus all ml-model-render
+
+# troubleshooting
+docker run --rm --gpus all -it --entrypoint="bash" ml-model-render
