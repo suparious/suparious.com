@@ -58,8 +58,7 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 sudo apt-get update
 sudo apt-get install -y nvidia-docker2
 #sudo ln -s /sbin/ldconfig /sbin/ldconfig.real
-sudo systemctl stop docker
-sudo systemctl start docker
+sudo systemctl restart docker
 
 # test
 docker run --rm --gpus all nvidia/cuda:11.1-base nvidia-smi
