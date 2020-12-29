@@ -4,6 +4,8 @@ sudo apt update
 # Install pre-requisites
 sudo apt-get install \
     git \
+    unzip \
+    wget \
     apt-transport-https \
     ca-certificates \
     curl \
