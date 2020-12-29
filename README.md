@@ -1,6 +1,6 @@
-# minerhub.co
+# suparious.com
 
-[![Codeship Status for suparious/minerhub.co](https://app.codeship.com/projects/64af4040-7812-0137-1258-029964c0c4c7/status?branch=master)](https://app.codeship.com/projects/350133)
+[![Codeship Status for suparious/suparious.com](https://app.codeship.com/projects/64af4040-7812-0137-1258-029964c0c4c7/status?branch=master)](https://app.codeship.com/projects/350133)
 
 ## Phase 1 Completed
 
@@ -20,7 +20,7 @@ git push --force -u origin HEAD:dev
 ```
 
 ```bash
-export GOPATH="C:\Users\shaun\source\minerhub.co"
+export GOPATH="C:\Users\shaun\source\suparious.com"
 export PORT=5000
 make clean
 make deps
@@ -67,8 +67,8 @@ Follow codeship document to jet-encrypt the IAM keys
 Make a git-ignore file that doesnt commit the actual keys
 Run those comment out commands 
 
-aws s3 cp --acl public-read web/index.html s3://minerhub.co
-aws s3 cp --acl public-read web/build.txt s3://minerhub.co
-aws s3 website s3://minerhub.co --index-document index.html
-aws s3 sync --delete --acl public-read web s3://minerhub.co
+aws s3 cp --acl public-read web/index.html s3://suparious.com
+aws s3 cp --acl public-read web/build.txt s3://suparious.com
+aws s3 website s3://suparious.com --index-document index.html
+aws s3 sync --delete --acl public-read web s3://suparious.com
 ```
