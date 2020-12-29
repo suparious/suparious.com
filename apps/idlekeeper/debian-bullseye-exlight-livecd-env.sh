@@ -74,3 +74,7 @@ wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/Dockerfile
 wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/cuda.repo
 wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/config
 docker build . -t ml-model-render:latest
+
+# run
+screen
+docker run --rm --gpus all ml-model-render
