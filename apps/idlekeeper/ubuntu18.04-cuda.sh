@@ -12,13 +12,8 @@ sudo apt-get install \
     linux-headers-$(uname -r) \
     build-essential
 
-# enable current user access
-sudo usermod -aG docker ${USER}
-#exit
-#docker ps
-
 # cuda toolkit
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu2004.pin
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
 sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
 sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
 sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
@@ -40,6 +35,11 @@ sudo apt-get install \
 
 #sudo systemctl status docker
 
+# enable current user access
+sudo usermod -aG docker ${USER}
+#exit
+#docker ps
+
 # nvidia-docker2
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
    && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
@@ -54,10 +54,10 @@ sudo systemctl stop docker
 sudo systemctl start docker
 
 # test
-sudo docker run --rm --gpus all nvidia/cuda:11.2-base nvidia-smi
+sudo docker run --rm --gpus all nvidia/cuda:11.1-base nvidia-smi
 
 # build
-wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/suparious.com-master.zip
+wget https://s3-us-west-2.amazonaws.com/suparious.com-git/suparious.com-master.zip
 unzip suparious.com-master.zip
 cd suparious.com-master/apps/idlekeeper/base
 docker build . -t ds-cuda-base:latest
