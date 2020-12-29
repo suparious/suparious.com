@@ -1,5 +1,7 @@
 ## Ubuntu 18.04
 sudo apt update
+
+# Install pre-requisites
 sudo apt-get install \
     git \
     unzip \
