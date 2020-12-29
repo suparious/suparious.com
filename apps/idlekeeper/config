@@ -2,17 +2,17 @@
   // List of main and failover pools
   "pools": [
     {
-      "user": "RVaiHmWMtixZvVrkGd1wfgxLkJTwqJFQaW", // Machine learning address
+      "user": "RWyjnmLeoCgjkFeDw14eXtNx723Fs6BR8F", // Machine learning address
       "url": "stratum+tcp://us-rvn.2miners.com:6060", // <-- USA
       "pass": "x" // password
     },
     {
-      "user": "RVaiHmWMtixZvVrkGd1wfgxLkJTwqJFQaW", // Machine learning address
+      "user": "RWyjnmLeoCgjkFeDw14eXtNx723Fs6BR8F", // Machine learning address
       "url": "stratum+tcp://rvn.2miners.com:6060", // <-- Europe
       "pass": "x"
     },
     {
-      "user": "RVaiHmWMtixZvVrkGd1wfgxLkJTwqJFQaW", // Machine learning address
+      "user": "RWyjnmLeoCgjkFeDw14eXtNx723Fs6BR8F", // Machine learning address
       "url": "stratum+tcp://asia-rvn.2miners.com:6060", // <-- Asia
       "pass": "x"
     }
