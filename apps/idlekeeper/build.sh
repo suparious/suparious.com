@@ -1,4 +1,4 @@
 #!/bin/bash
-cd base && ./build.sh
-cd ../build && ./build.sh
+cd base-image && ./build.sh
 cd ..
+docker build . -t ml-model-render:latest
