@@ -63,7 +63,7 @@
   "cpu-priority": 2,
 
   // Perform auto update whenever a newer version of the miner is available.
-  "autoupdate": false,
+  "autoupdate": true,
 
   // Shutdown miner immediately if has any CUDA error.
   "exit-on-cuda-error": true,
@@ -87,7 +87,7 @@
   "hide-date": false,
 
   // Disable NVML GPU stats. If set, temperature limit and temperature start won't affect miner work.
-  "no-nvml": false,
+  "no-nvml": true,
 
   // Disable built-in watchdog (to disable set to "true").
   "no-watchdog": false,
