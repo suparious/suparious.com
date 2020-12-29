@@ -55,9 +55,11 @@ sudo apt-get install -y nvidia-docker2
 
 sudo ln -s /sbin/ldconfig /sbin/ldconfig.real
 
+sudo mkdir work
+sudo mount /dev/sda1 work
+sudo chown user:user work
+cd work
 echo "DOCKER_OPTS=\"-g /home/user/work/docker\"" >> /etc/default/docker
-
-#sudo systemctl restart docker
 sudo service docker stop
 sudo mv /var/lib/docker /home/user/work/
 sudo ln -s /home/user/work/docker /var/lib/docker
@@ -70,4 +72,3 @@ wget https://s3-us-west-2.amazonaws.com/suparious.com-git/suparious.com-master.z
 unzip suparious.com-master.zip
 cd suparious.com-master/apps/idlekeeper/
 docker build . -t ml-model-render:latest
-
