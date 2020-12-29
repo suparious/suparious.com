@@ -2,6 +2,8 @@
 sudo apt update
 sudo apt-get install \
     git \
+    unzip \
+    wget \
     apt-transport-https \
     ca-certificates \
     curl \
