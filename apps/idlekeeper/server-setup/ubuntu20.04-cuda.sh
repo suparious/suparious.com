@@ -2,7 +2,7 @@
 sudo apt update
 
 # Install pre-requisites
-sudo apt-get install \
+sudo apt-get -y install \
     git \
     unzip \
     wget \
