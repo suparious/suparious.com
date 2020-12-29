@@ -1,31 +1,37 @@
 ## exLight Debian
 sudo ifconfig enp2s0f0 down
-dpkg -i code_1.52.1-1608136922_amd64.deb
 sudo sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list
-sudo apt-get --allow-unauthenticated update
-sudo apt install git
-ssh-keygen -b 4096
-cat /home/user/.ssh/id_rsa.pub
-git clone git@github.com:suparious/suparious.com.git
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
+# fix debian-security repo
+# bullseye-security/updates main contrib non-free
+#sudo apt-get --allow-unauthenticated update
+sudo apt-get update
 
 # start
 sudo apt-get install \
+    git \
     apt-transport-https \
     ca-certificates \
     curl \
     gnupg-agent \
     gnupg2 \
-    software-properties-common
+    software-properties-common \
+    screen
+
+#sudo add-apt-repository \
+#   "deb [arch=amd64] https://download.docker.com/linux/debian \
+#   $(lsb_release -cs) \
+#   stable"
 
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
-   $(lsb_release -cs) \
+   buster \
    stable"
 
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 
-sudo apt-get --allow-unauthenticated update
-sudo apt-get --allow-unauthenticated install \
+sudo apt-get update
+sudo apt-get install \
     docker-ce docker-ce-cli containerd.io
 
 sudo systemctl status docker
@@ -46,11 +52,19 @@ curl -s -L https://nvidia.github.io/nvidia-docker/debian10/nvidia-docker.list | 
 
 sudo apt-get update
 sudo apt-get install -y nvidia-docker2
+
 sudo ln -s /sbin/ldconfig /sbin/ldconfig.real
-sudo systemctl restart docker
+
+echo "DOCKER_OPTS=\"-g /home/user/work/docker\"" >> /etc/default/docker
+
+#sudo systemctl restart docker
+sudo service docker stop
+sudo mv /var/lib/docker /home/user/work/
+sudo ln -s /home/user/work/docker /var/lib/docker
+sudo service docker start
 
 # test
-sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+sudo docker run --rm --gpus all nvidia/cuda:10.2-base nvidia-smi
 
 wget https://s3-us-west-2.amazonaws.com/suparious.com-git/suparious.com-master.zip
 unzip suparious.com-master.zip
