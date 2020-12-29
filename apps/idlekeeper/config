@@ -18,11 +18,35 @@
     }
   ],
 
+  // Coin name. Helps avoid DAG rebuilds when switching back from a dev fee session.
+  "coin" : "",
+  
+  // Default worker name for all pools in failover list.
+  "worker" : "default_worker_name",
+    
+  // Sort devices by PCI bus ID. Device IDs start with 0.
+  "pci-indexing" : false,
+  
+  // Afterburner indexing (same as "pci-indexing" but starts from 1).
+  "ab-indexing" : false,
+  
+  // Enables DAG sequential initialization.
+  "gpu-init-mode" : 0,
+
+  // Continue mining even in case of connection loss.
+  "keep-gpu-busy" : false,
+  
+  // Allow only read operations for API calls.
+  "api-read-only" : false,
+  
+  // Choose kernel for Ethash. Range from 0 to 5.
+  "kernel" : "0",
+
   // Telnet API bind address.
-  "api-bind-telnet": "0.0.0.0:4068", // Set to "0" to disable Telnet API
+  "api-bind-telnet": "0", // Set to "0" to disable Telnet API
 
   // HTTP API bind address.
-  "api-bind-http": "0.0.0.0:4067", // Set to "0" to disable HTTP API
+  "api-bind-http": "0", // Set to "0" to disable HTTP API
 
   // If set to true enables json response for Telnet API.
   "json-response": false,
@@ -55,6 +79,9 @@
   // Sliding window length in sec used to compute sharerate.
   "sharerate-avr": 600,
 
+  // GPU stats report frequency. Minimum is 5 sec. (default: 30 sec)
+  "gpu-report-interval": 30,
+
   // Path to the log file. If only file name set log will be saved into directory with the miner.
   "log-path": "t-rex.log",
   // "log-path": "/home/x/t-rex.log", // Absolute path
@@ -77,9 +104,6 @@
   // User protocol logging.
   "protocol-dump": false, // Set to true to turn it on.
 
-  // Configurable GPUs report frequency. By default every 5 shares.
-  "gpu-report-interval": 5,
-
   // Disable color output for console
   "no-color": false,
 
@@ -88,6 +112,12 @@
 
   // Disable NVML GPU stats. If set, temperature limit and temperature start won't affect miner work.
   "no-nvml": true,
+
+  // Disable certificate validation for SSL connections.
+  "no-strict-ssl": false, // set to true to allow unsecure SSL
+
+  // Disable hashrate report to pool (to disable set to "true").
+  "no-hashrate-report": false,
 
   // Disable built-in watchdog (to disable set to "true").
   "no-watchdog": false,
@@ -112,5 +142,11 @@
   "temperature-start": 0,
 
   // Forces miner to switch back to main pool in case working with failover pool. Parameter is set in seconds. (default: 600)
-  "back-to-main-pool-sec": 600
+  "back-to-main-pool-sec": 600,
+  
+  // Settings for monitoring API.
+  "monitoring-page" : {
+     "graph_interval_sec" : 3600,
+     "update_timeout_sec" : 10
+  }
 }
