@@ -1,5 +1,7 @@
-## Ubuntu 20.04
+## Ubuntu 20.04 base image
 sudo apt update
+
+# Install pre-requisites
 sudo apt-get install \
     git \
     apt-transport-https \
@@ -12,12 +14,10 @@ sudo apt-get install \
     linux-headers-$(uname -r) \
     build-essential
 
-# enable current user access
-sudo usermod -aG docker ${USER}
-#exit
-#docker ps
+# Shell customizations
+echo "rm -rf ~/.bash_history" >> .bashrc
 
-# cuda toolkit
+# Nvidia cuda toolkit and GPU drivers
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
 sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
@@ -26,12 +26,6 @@ sudo apt-get update
 sudo apt-get -y install cuda
 
 reboot
-
-# nvidia
-#BASE_URL=https://us.download.nvidia.com/tesla
-#DRIVER_VERSION=450.80.02
-#curl -fSsl -O $BASE_URL/$DRIVER_VERSION/NVIDIA-Linux-x86_64-$DRIVER_VERSION.run
-#sudo sh NVIDIA-Linux-x86_64-$DRIVER_VERSION.run
 
 # docker
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
@@ -44,7 +38,13 @@ sudo apt-get update
 sudo apt-get install \
     docker-ce docker-ce-cli containerd.io
 
+# enable current user access
+sudo usermod -aG docker ${USER}
+sudo su - ${USER}
+
+# test docker
 #sudo systemctl status docker
+docker ps
 
 # nvidia-docker2
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
@@ -60,7 +60,7 @@ sudo systemctl stop docker
 sudo systemctl start docker
 
 # test
-sudo docker run --rm --gpus all nvidia/cuda:11.2-base nvidia-smi
+docker run --rm --gpus all nvidia/cuda:11.1-base nvidia-smi
 
 # build
 wget https://s3-us-west-2.amazonaws.com/suparious.com-git/suparious.com-master.zip && \
