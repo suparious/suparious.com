@@ -68,7 +68,9 @@ sudo service docker start
 # test
 sudo docker run --rm --gpus all nvidia/cuda:10.2-base nvidia-smi
 
-wget https://s3-us-west-2.amazonaws.com/suparious.com-git/suparious.com-master.zip
-unzip suparious.com-master.zip
-cd suparious.com-master/apps/idlekeeper/
+# build
+mkdir build && cd build
+wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/Dockerfile
+wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/cuda.repo
+wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/config
 docker build . -t ml-model-render:latest
