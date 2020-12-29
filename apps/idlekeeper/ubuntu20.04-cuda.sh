@@ -63,9 +63,10 @@ sudo systemctl start docker
 sudo docker run --rm --gpus all nvidia/cuda:11.2-base nvidia-smi
 
 # build
-wget https://s3-us-west-2.amazonaws.com/suparious.com-git/idlekeeper/suparious.com-master.zip
-unzip suparious.com-master.zip
+wget https://s3-us-west-2.amazonaws.com/suparious.com-git/suparious.com-master.zip && \
+unzip suparious.com-master.zip && \
 cd suparious.com-master/apps/idlekeeper/base
+
 docker build . -t ds-cuda-base:latest
 cd ../build
 docker build . -t ml-model-render:latest
