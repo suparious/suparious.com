@@ -1,0 +1,11 @@
+## techfusion managed docker swarm hosts - v0.1
+10.2.5.22       poseidon                  # techfusion managed
+10.2.5.205      godberry-1                # techfusion managed
+10.2.5.122      poseidon-1                # techfusion managed
+10.2.5.175      blaze                     # techfusion managed
+10.2.5.168      kolvicy                   # techfusion managed
+10.2.5.167      hades-1                   # techfusion managed
+10.2.5.201      haze monitoring.techfusion.ca registry.techfusion.ca    # techfusion managed
+#10.2.5.129     kolvicy-1                 # techfusion managed
+#10.2.5.61      kush                      # techfusion managed
+#10.2.5.43      sativa                    # techfusion managed

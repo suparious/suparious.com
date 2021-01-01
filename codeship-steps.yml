@@ -14,7 +14,7 @@
   tag: dev
   steps:
     - service: deploy-dev
-      command: aws s3 ls s3://dev.minerhub.co
+      command: aws s3 ls s3://dev.suparious.com
     - service: deploy-dev
       command: /bin/sh /deploy/ci/ci-deploy.sh
 - type: serial
@@ -22,7 +22,7 @@
   tag: stg
   steps:
     - service: deploy-stg
-      command: aws s3 ls s3://stg.minerhub.co
+      command: aws s3 ls s3://stg.suparious.com
     - service: deploy-stg
       command: /bin/sh /deploy/ci/ci-deploy.sh
 - type: serial
@@ -30,7 +30,7 @@
   tag: prd
   steps:
     - service: deploy-prd
-      command: aws s3 ls s3://minerhub.co
+      command: aws s3 ls s3://suparious.com
     - service: deploy-prd
       command: /bin/sh /deploy/ci/ci-deploy.sh
 

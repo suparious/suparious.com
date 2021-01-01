@@ -1,7 +1,7 @@
 # Local env values
 
 ```bash
-export GOPATH=/c/Users/shaun/source/minerhub.co
+export GOPATH=/c/Users/shaun/source/suparious.com
 export GOPATH=$(go env GOPATH)
 export DBHOST=localhost
 export DBPORT=5432

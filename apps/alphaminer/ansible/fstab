@@ -1,0 +1,9 @@
+# techfusion managed filesystem - v0.3.4
+//poseidon/techfusion/certs          /media/certs  cifs  guest,username=Guest,iocharset=utf8,uid=shaun,gid=docker,file_mode=0776,dir_mode=0777   0 2
+//poseidon/techfusion/docker         /media/docker cifs  guest,username=Guest,iocharset=utf8,uid=shaun,gid=docker,file_mode=0776,dir_mode=0777   0 2
+//poseidon/techfusion/monitoring     /media/monitoring cifs  guest,username=Guest,iocharset=utf8,nobrl,uid=shaun,gid=docker,file_mode=0777,dir_mode=0777   0 2
+//poseidon/techfusion/registry       /media/registry cifs  guest,username=Guest,iocharset=utf8,uid=shaun,gid=docker,file_mode=0776,dir_mode=0777   0 2
+//poseidon/techfusion/source         /media/source cifs  guest,username=Guest,iocharset=utf8,uid=shaun,gid=docker,file_mode=0776,dir_mode=0777   0 2
+//poseidon/Completed                /media/Completed  cifs  guest,username=Guest,iocharset=utf8,uid=shaun,gid=docker,file_mode=0776,dir_mode=0777   0 2
+//poseidon/Shared                   /media/Shared  cifs  guest,username=Guest,iocharset=utf8,uid=shaun,gid=docker,file_mode=0776,dir_mode=0777   0 2
+//poseidon/temp                     /media/temp  cifs  guest,username=Guest,iocharset=utf8,uid=shaun,gid=docker,file_mode=0776,dir_mode=0777   0 2

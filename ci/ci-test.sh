@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+export DOMAIN="suparious.com"
 printenv
 cd $GOPATH
 echo "=== Begin test phase ==="

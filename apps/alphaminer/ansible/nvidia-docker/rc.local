@@ -1,0 +1,50 @@
+#!/bin/bash -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+# Launch xserver
+X :0 &
+sleep 10
+export DISPLAY=:0
+
+# Enable power management of GPUs
+nvidia-smi -pm ENABLED | sed "s/^/  /gi"
+
+# GPU Defaults
+POWER=200       # Power limit in Watts
+FAN=90          # Fan speed in %
+
+set +e
+# Enable fan control
+export DISPLAY=:0
+ALL_GPUS=$(nvidia-smi | grep GeForce | awk -F " " '{ print $2 }' | tail -n 1)
+(( ++ALL_GPUS ))
+while (( --ALL_GPUS >= 0 )); do
+  nvidia-smi -i $ALL_GPUS -pl $POWER
+  nvidia-settings -a "[gpu:$ALL_GPUS]/GPUFanControlState=1"
+done
+
+# set default fan speed
+ALL_FANS=$(nvidia-settings -q fans | head -n 2 | grep "Fans" | awk -F " " '{ print $1 }')
+(( ++ALL_FANS ))
+while (( --ALL_FANS >= 0 )); do
+  nvidia-settings -a "[fan:$ALL_FANS]/GPUTargetFanSpeed=$FAN"
+done
+set -e
+
+exit 0

@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+export DOMAIN="suparious.com"
 printenv
 echo "=== Begin validation phase ==="
 

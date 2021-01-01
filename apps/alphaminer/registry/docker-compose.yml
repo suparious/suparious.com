@@ -1,0 +1,37 @@
+version: '3.3'
+
+volumes:
+    registry:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: "/media/registry"
+    certs:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: "/media/certs"
+    auth:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: "/media/certs/auth"
+
+services:
+  registry:
+    image: registry:latest
+    ports:
+      - 5000:5000
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/registry.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/registry.key
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_PATH: /var/lib/registry/passfile
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+    volumes:
+      - registry:/var/lib/registry
+      - certs:/certs
+      - auth:/auth
