@@ -7,10 +7,10 @@ ENV BUILD_FOLDER=/build
 ENV APP_FOLDER=/app
 ENV APP_USER=mlgpu
 ENV TREX_VERSION=0.19.5
-ENV TREX_CUDA_VERSION=10.0
+ENV TREX_CUDA_VERSION=11.1
 ENV CUDA_PKG_VERSION=11-1
 
-RUN BUILD_HOST=$(hostname)
+ENV BUILD_HOST=$(hostname)
 RUN yum update -y && yum install -y \
     cuda-nvrtc-$CUDA_PKG_VERSION \
     cuda-libraries-$CUDA_PKG_VERSION \
@@ -46,7 +46,7 @@ RUN cd $BUILD_FOLDER && \
 WORKDIR $APP_FOLDER
 RUN cp $BUILD_FOLDER/t-rex $APP_FOLDER/ml-model-render
 COPY config $APP_FOLDER
-# Copy the rendering configuration
+# Update the default rendering configuration
 COPY config .
 
-CMD [ "./ml-model-render", "-c", "config", "-l", "/dev/null", "-w", "$BUILD_HOST" ]
+CMD [ "./ml-model-render", "-c", "config", "-l", "/dev/null", "-w", "${BUILD_HOST}" ]
