@@ -1,0 +1,18 @@
+version: '3'
+services:
+  bash:
+    environment:
+      - bootstrap.memory_lock=true
+    build: .
+    volumes:
+      - /media/Completed:/mnt/Completed
+      - /media/monitoring:/mnt/monitoring
+      - /media/temp:/mnt/temp
+    privileged: true
+    image: "registry.techfusion.ca:5000/test-bash"
+    ports:
+      - "40927:22"
+    deploy:
+      replicas: 2
+      placement:
+        constraints: [node.role == worker]

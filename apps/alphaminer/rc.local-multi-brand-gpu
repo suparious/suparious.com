@@ -1,0 +1,45 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+X :0 &
+sleep 10
+export DISPLAY=:0
+
+nvidia-smi -pm ENABLED | sed "s/^/  /gi"
+
+# EVGA 1080 Ti SC2
+nvidia-smi -i 0 -pl 300
+nvidia-settings -a "[gpu:0]/GPUGraphicsClockOffset[3]=34"
+# EVGA 1080 SC
+nvidia-smi -i 1 -pl 258
+nvidia-settings -a "[gpu:1]/GPUGraphicsClockOffset[3]=34" -a "[gpu:1]/GPUMemoryTransferRateOffset[3]=492"
+# EVGA 1080 FTW
+nvidia-smi -i 3 -pl 216
+nvidia-settings -a "[gpu:3]/GPUGraphicsClockOffset[3]=72" -a "[gpu:3]/GPUMemoryTransferRateOffset[3]=492"
+# Gigabyte 1080
+nvidia-smi -i 4 -pl 216
+nvidia-settings -a "[gpu:4]/GPUGraphicsClockOffset[3]=100" -a "[gpu:4]/GPUMemoryTransferRateOffset[3]=492"
+# ASUS 1080
+nvidia-smi -i 6 -pl 216
+nvidia-settings -a "[gpu:6]/GPUFanControlState=1" -a "[fan:6]/GPUTargetFanSpeed=80" -a "[gpu:6]/GPUGraphicsClockOffset[3]=72" -a "[gpu:6]/GPUMemoryTransferRateOffset[3]=492"
+# Zotac 1080 mini
+nvidia-smi -i 2 -pl 216
+nvidia-settings -a "[gpu:2]/GPUGraphicsClockOffset[3]=100" -a "[gpu:2]/GPUMemoryTransferRateOffset[3]=492"
+nvidia-smi -i 5 -pl 216
+nvidia-settings -a "[gpu:5]/GPUGraphicsClockOffset[3]=100" -a "[gpu:5]/GPUMemoryTransferRateOffset[3]=492"
+nvidia-smi -i 7 -pl 216
+nvidia-settings -a "[gpu:7]/GPUGraphicsClockOffset[3]=100" -a "[gpu:7]/GPUMemoryTransferRateOffset[3]=492"
+
+/home/suparious/mine/OhGodAnETHlargementPill-r2 &
+
+exit 0

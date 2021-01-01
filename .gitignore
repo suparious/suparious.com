@@ -1,0 +1,17 @@
+# Golang
+src/github.com
+src/golang.org
+bin/*
+pkg/*
+
+# CodeShip
+build_args
+*.aes
+aws_deployment.dev
+dockercfg
+
+# Terraform
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+*.pem
