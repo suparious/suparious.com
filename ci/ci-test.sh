@@ -11,18 +11,18 @@ echo "= BEGIN web:${CI_BRANCH}"
 set +e
 case ${CI_BRANCH} in
   stg|dev)
-  curl ${CI_BRANCH}.minerhub.co
+  curl ${CI_BRANCH}.${DOMAIN}
   EXT=$?
   if [ $EXT -ne 0 ]; then
-    echo "something fucked-up with: ${CI_BRANCH}.minerhub.co"
+    echo "something fucked-up with: ${CI_BRANCH}.${DOMAIN}"
     exit $EXT
   fi
   ;;
   prd)
-  curl minerhub.co
+  curl ${DOMAIN}
   EXT=$?
   if [ $EXT -ne 0 ]; then
-    echo "something fucked-up with: minerhub.co"
+    echo "something fucked-up with: ${DOMAIN}"
     set -e
     exit $EXT
   fi
