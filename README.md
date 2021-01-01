@@ -1,6 +1,6 @@
 # suparious.com
 
-[![Codeship Status for suparious/suparious.com](https://app.codeship.com/projects/64af4040-7812-0137-1258-029964c0c4c7/status?branch=master)](https://app.codeship.com/projects/350133)
+[![Codeship Status for suparious/suparious.com](https://app.codeship.com/projects/127d1d5a-2aae-4f8a-bc44-a9edba7d08e0/status?branch=master)](https://app.codeship.com/projects/422951)
 
 ## Phase 1 Completed
 
