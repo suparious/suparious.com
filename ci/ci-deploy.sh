@@ -14,20 +14,20 @@ cat web/build.txt
 case ${CI_BRANCH} in
   dev|stg)
     echo "Development env scripts"
-    aws s3 cp --acl public-read web/error.html s3://${CI_BRANCH}.${DOMAIN}
+    aws s3 cp --acl public-read web/shit.html s3://${CI_BRANCH}.${DOMAIN}
     aws s3 cp --acl public-read web/index.html s3://${CI_BRANCH}.${DOMAIN}
     aws s3 cp --acl public-read web/build.txt s3://${CI_BRANCH}.${DOMAIN}
     aws s3 website s3://${CI_BRANCH}.${DOMAIN} --index-document index.html
-    aws s3 website s3://${CI_BRANCH}.${DOMAIN} --error-document error.html
+    aws s3 website s3://${CI_BRANCH}.${DOMAIN} --error-document shit.html
     #aws s3 sync --delete --acl public-read web s3://${CI_BRANCH}.${DOMAIN}
     ;;
   prd)
     echo "Production deployment scripts"
-    aws s3 cp --acl public-read web/error.html s3://${DOMAIN}
+    aws s3 cp --acl public-read web/shit.html s3://${DOMAIN}
     aws s3 cp --acl public-read web/index.html s3://${DOMAIN}
     aws s3 cp --acl public-read web/build.txt s3://${DOMAIN}
     aws s3 website s3://${DOMAIN} --index-document index.html
-    aws s3 website s3://${DOMAIN} --error-document error.html
+    aws s3 website s3://${DOMAIN} --error-document shit.html
     #aws s3 sync --delete --acl public-read web s3://${DOMAIN}
     ;;
 esac
