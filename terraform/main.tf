@@ -150,6 +150,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   aliases = [var.domain_name, "*.${var.domain_name}"]
 
+  custom_error_response {
+    response_page_path = "/shit.html"
+    error_code = [400, 403, 404, 405, 414, 416]
+  }
+
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
