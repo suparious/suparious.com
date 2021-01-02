@@ -9,6 +9,10 @@ export region="us-west-2"
 export tf_override_vars=""
 export tf_vars_file="${environment}.tfvars"
 
+# init environment
+tfenv install
+tfenv use
+
 set -e          # stop execution on failure
 # check
 INSTALLED=$(terraform version | head -n 1 | sed 's/Terraform v//')
@@ -22,7 +26,7 @@ else
     exit 1
 fi
 
-# init
+# init terraform
 terraform init \
 -backend-config="bucket=${bucket}" \
 -backend-config="key=${s3_key}" \
