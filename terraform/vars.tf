@@ -17,3 +17,8 @@ variable "region" {
   type        = string
   default     = "us-west-2"
 }
+
+variable "domain_name" {
+  description = "The domain name for the bucket."
+  type        = string
+}

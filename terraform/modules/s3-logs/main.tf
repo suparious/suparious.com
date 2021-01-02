@@ -68,6 +68,15 @@ resource "aws_s3_bucket" "s3_bucket" {
     }
   }
 
+  dynamic "website" {
+    for_each = length(keys(var.website)) == 0 ? [] : [var.website]
+
+    content {
+    index_document = lookup(website.value, "index_document", null)
+    error_document = lookup(website.value, "error_document", null)
+    }
+  }
+  
   grant {
     id          = data.aws_canonical_user_id.current_user.id
     type        = "CanonicalUser"
@@ -79,4 +88,6 @@ resource "aws_s3_bucket" "s3_bucket" {
     permissions = ["READ", "READ_ACP", "WRITE"]
     uri         = "http://acs.amazonaws.com/groups/s3/LogDelivery"
   }
+
+
 }
