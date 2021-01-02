@@ -152,8 +152,23 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   custom_error_response {
     response_page_path = "/shit.html"
-    error_code = [400, 403, 404, 405, 414, 416]
+    error_code = 400
+    response_code = 200      
   }
+
+  custom_error_response {
+    response_page_path = "/shit.html"
+    error_code = 403
+    response_code = 200      
+  }
+
+  custom_error_response {
+    response_page_path = "/shit.html"
+    error_code = 404
+    response_code = 200      
+  }
+
+  # , 403, 404, 405, 414, 416]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]

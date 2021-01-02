@@ -1,6 +1,6 @@
 #!/bin/bash
 # configure
-export environment="dev"
+export environment=$1
 export project="suparious"
 export s3_key="${project}/${environment}/${project}-${environment}.tfstat"
 export tf_plan_file=".terraform/latest-plan"
