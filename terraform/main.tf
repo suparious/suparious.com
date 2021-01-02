@@ -49,7 +49,7 @@ module "main_s3" {
 
   website = {
     index_document = "index.html"
-    error_document = "error.html"
+    error_document = "shit.html"
 
   }
 
@@ -82,7 +82,7 @@ module "logging_s3" {
 
   website = {
     index_document = "index.html"
-    error_document = "error.html"
+    error_document = "shit.html"
 
   }
 
