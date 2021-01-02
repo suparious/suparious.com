@@ -15,3 +15,4 @@ dockercfg
 terraform.tfstate
 terraform.tfstate.backup
 *.pem
+*.lock.hcl

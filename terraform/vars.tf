@@ -17,8 +17,3 @@ variable "region" {
   type        = string
   default     = "us-west-2"
 }
-
-variable "logging_bucket" {
-  description = "The name of the bucket."
-  type        = string
-}

@@ -23,14 +23,14 @@ locals {
 }
 
 module "main_s3" {
-  source        = "./modules/s3"
-  env           = var.env
-  project       = var.project
-  region        = var.region
-  bucket        = var.bucket
-  acl           = "public"
-  force_destroy = true
-  common_tags   = local.common_tags
+  source             = "./modules/s3"
+  env                = var.env
+  project            = var.project
+  region             = var.region
+  bucket             = var.bucket
+  acl                = "public-read"
+  force_destroy      = true
+  common_tags        = local.common_tags
 
   versioning = {
     enabled = true
@@ -38,17 +38,40 @@ module "main_s3" {
 
   website = {
     index_document = "index.html"
+    error_document = "error.html"
+
   }
 
   logging = {
-    target_bucket = "${var.bucket}-logs"
-    target_prefix = "${var.project}-${var.bucket}-${var.env}"
+    target_bucket = module.logging_s3.s3_bucket_id
+    target_prefix = "${var.project}-${var.env}"
   }
 
   server_side_encryption_configuration = {
     rule = {
       apply_server_side_encryption_by_default = {
-        sse_algorithm     = "AES256"
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+  depends_on = [
+    module.logging_s3,
+  ]
+}
+
+module "logging_s3" {
+  source             = "./modules/s3-logs"
+  env                = var.env
+  project            = var.project
+  region             = var.region
+  bucket             = "${var.bucket}-logs"
+  force_destroy      = true
+  common_tags        = local.common_tags
+
+  server_side_encryption_configuration = {
+    rule = {
+      apply_server_side_encryption_by_default = {
+        sse_algorithm = "AES256"
       }
     }
   }

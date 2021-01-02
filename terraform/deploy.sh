@@ -3,22 +3,11 @@
 export environment="dev"
 export project="suparious"
 export s3_key="${project}/${environment}/${project}-${environment}.tfstat"
-export project_dir="."
 export tf_plan_file=".terraform/latest-plan"
-export ecs_image_tag="latest"
-export lambda_tag="latest"
-export lambda_tag2="latest"
-export lambda_layer_tag="latest"
-export lambda_layer_tag2="latest"
-export bucket="terraform-states-us-west-2"
+export bucket="suparious-tf-states-us-west-2"
 export region="us-west-2"
-export tf_override_vars="-var ecs_image_tag=${ecs_image_tag} -var lambda_tag=${lambda_tag} -var lambda_tag2=${lambda_tag2} -var lambda_layer_tag=${lambda_layer_tag} -var lambda_layer_tag2=${lambda_layer_tag2}"
+export tf_override_vars=""
 export tf_vars_file="${environment}.tfvars"
-export TF_LOG="INFO"
-
-# clean
-sed '/^source_profile/d' ${HOME}/.aws/config > ${HOME}/.aws/config
-#rm -rf .terraform   # comment this out to make the init faster, at the risk of having stale modules
 
 set -e          # stop execution on failure
 # check

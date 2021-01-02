@@ -1,42 +1,16 @@
+data "aws_canonical_user_id" "current_user" {}
+
 resource "aws_s3_bucket" "s3_bucket" {
   count = var.create_bucket ? 1 : 0
 
   bucket              = var.bucket
   bucket_prefix       = var.bucket_prefix
-  acl                 = var.acl
   force_destroy       = var.force_destroy
   acceleration_status = var.acceleration_status
 
   tags = merge(var.common_tags, map(
     "Name", var.bucket
   ))
-
-  dynamic "website" {
-    for_each = length(keys(var.website)) == 0 ? [] : [var.website]
-
-    content {
-    index_document = lookup(website.value, "index_document", null)
-    error_document = lookup(website.value, "error_document", null)
-    }
-  }
-
-  dynamic "versioning" {
-    for_each = length(keys(var.versioning)) == 0 ? [] : [var.versioning]
-
-    content {
-      enabled    = lookup(versioning.value, "enabled", null)
-      mfa_delete = lookup(versioning.value, "mfa_delete", null)
-    }
-  }
-
-  dynamic "logging" {
-    for_each = length(keys(var.logging)) == 0 ? [] : [var.logging]
-
-    content {
-      target_bucket = logging.value.target_bucket
-      target_prefix = lookup(logging.value, "target_prefix", null)
-    }
-  }
 
   dynamic "lifecycle_rule" {
     for_each = var.lifecycle_rule
@@ -92,5 +66,17 @@ resource "aws_s3_bucket" "s3_bucket" {
         }
       }
     }
+  }
+
+  grant {
+    id          = data.aws_canonical_user_id.current_user.id
+    type        = "CanonicalUser"
+    permissions = ["FULL_CONTROL"]
+  }
+
+  grant {
+    type        = "Group"
+    permissions = ["READ", "READ_ACP", "WRITE"]
+    uri         = "http://acs.amazonaws.com/groups/s3/LogDelivery"
   }
 }
