@@ -2,12 +2,19 @@
 # configure
 export environment=$1
 export project="suparious"
+if [ -z ${environment} ]; then
+  export environment="dev"
+fi
+echo "Running for ${environment}."
+export region="us-west-2"
+export bucket="suparious-tf-states-${region}"
 export s3_key="${project}/${environment}/${project}-${environment}.tfstat"
 export tf_plan_file=".terraform/latest-plan"
-export bucket="suparious-tf-states-us-west-2"
-export region="us-west-2"
 export tf_override_vars=""
 export tf_vars_file="${environment}.tfvars"
+
+echo "Backend: s3://${bucket}/${s3_key}"
+echo "Vars file: ${tf_vars_file}"
 
 # init environment
 tfenv install

@@ -95,14 +95,14 @@ module "logging_s3" {
   }
 }
 
-# DNS zones
-resource "aws_route53_zone" "primary" {
-  name = var.domain_name
-
-  tags = merge(local.common_tags, map(
-    "Name", "${var.project}-${var.env}-dist"
-  ))
-}
+## DNS zones
+#resource "aws_route53_zone" "primary" {
+#  name = var.domain_name
+#
+#  tags = merge(local.common_tags, map(
+#    "Name", "${var.project}-${var.env}-dist"
+#  ))
+#}
 
 # SSL Certificate
 resource "aws_acm_certificate" "cert" {
