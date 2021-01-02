@@ -1,34 +1,38 @@
+# terraform-S3
+
+# Overview
+- Create S3 bucket
+- Optional, set encryption, logging, versioning, lifecycle policies
+
+# Usage
+
+````terraform
 terraform {
-  backend "s3" {}
+  backend "s3" {
+    encrypt = true
+  }
 }
 
 provider "aws" {
   region = var.region
 }
 
-data "aws_caller_identity" "current" {}
-
 locals {
-  # Common parameters
-  account_id        = data.aws_caller_identity.current.account_id
-  cloudwatch_prefix = "/${var.project}/${var.env}"
-  bucket_arn        = module.main_s3.s3_bucket_arn
-
+  # Common tags to be assigned to all resources
   common_tags = {
-    Project      = var.project
-    Environment  = var.env
-    CreatedBy    = "Terraform"
-    CostCategory = "Suparious"
+    Project = var.project
+    Environment = var.env
+    CreatedBy = "Terraform"
   }
 }
 
-module "main_s3" {
-  source        = "./modules/s3"
+module "S3" {
+  source        = "git@github.com:suparious/terraform-S3.git?ref=<TAG>"
   env           = var.env
   project       = var.project
   region        = var.region
   bucket        = var.bucket
-  acl           = "public"
+  acl           = var.acl
   force_destroy = true
   common_tags   = local.common_tags
 
@@ -41,7 +45,7 @@ module "main_s3" {
   }
 
   logging = {
-    target_bucket = "${var.bucket}-logs"
+    target_bucket = var.logging_bucket
     target_prefix = "${var.project}-${var.bucket}-${var.env}"
   }
 
@@ -53,3 +57,5 @@ module "main_s3" {
     }
   }
 }
+
+````
