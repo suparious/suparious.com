@@ -70,9 +70,9 @@ sudo systemctl start docker
 sudo docker run --rm --gpus all nvidia/cuda:11.1-base nvidia-smi
 
 # build
-wget https://s3-us-west-2.amazonaws.com/suparious.com-git/suparious.com-master.zip && \
-unzip suparious.com-master.zip && \
-cd suparious.com-master/apps/idlekeeper/ && \
+wget https://s3-us-west-2.amazonaws.com/suparious.com/idlekeeper.zip && \
+unzip idlekeeper.zip && \
+cd idlekeeper/ && \
 chmod +x base-image/build.sh && \
 chmod +x build.sh && \
 ./build.sh
