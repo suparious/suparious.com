@@ -9,7 +9,7 @@ build_args
 *.aes
 aws_deployment.dev
 dockercfg
-*.env
+*_key.env
 
 # Terraform
 .terraform
