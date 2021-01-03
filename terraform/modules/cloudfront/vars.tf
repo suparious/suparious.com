@@ -34,3 +34,9 @@ variable "logs_bucket_domain" {
 variable "acm_cert_arn" {
   
 }
+
+variable "common_tags" {
+  description = "(Optional) A mapping of tags to assign to the bucket."
+  type        = map(string)
+  default     = {}
+}

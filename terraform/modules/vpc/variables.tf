@@ -15,14 +15,30 @@ variable "vpc_cidr_prefix" {
   default = "10.0"
 }
 
-locals {
-  nat_instance          = "${ var.nat_mode == "gateway" ? false : true }"
-  nat_instance_multi_az = "${ local.nat_instance == false ? false : var.multi_az }"
+variable "nat_instance" {
+  default = false
+}
 
-  nat_gw                = "${ var.nat_mode == "gateway" ? true : false }"
-  nat_gw_multi_az       = "${ local.nat_gw == false ? false : var.multi_az }"
+variable  "nat_instance_multi_az" {
+  default = false
+}
+
+variable "nat_gw" {
+  default = true
+  // TODO nat_gw = "${ var.nat_mode == "gateway" ? true : false }"
+}
+
+variable "nat_gw_multi_az" {
+  default = true
+  // TODO nat_gw_multi_az = "${ local.nat_gw == false ? false : var.multi_az }"
 }
 
 variable "nat_instance_type" {
   default = "t2.small"
+}
+
+variable "common_tags" {
+  description = "(Optional) A mapping of tags to assign to the bucket."
+  type        = map(string)
+  default     = {}
 }
