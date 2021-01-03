@@ -1,12 +1,17 @@
 #!/bin/sh
 set -e
 echo "=== Begin terraform phase ==="
-apk add git
+apk upgrade git
 ls -al
 cd deploy/terraform
 git clone https://github.com/tfutils/tfenv.git ~/.tfenv
 ln -s ~/.tfenv/bin/* /usr/local/bin
 which tfenv
+set +e
+tfenv install
+tfenv use
+set -e
+terraform version
 cd ../..
 echo "=== End terraform phase ==="
 export DOMAIN="suparious.com"
