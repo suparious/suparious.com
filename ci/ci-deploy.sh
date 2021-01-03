@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 echo "=== Begin infrastructure phase ==="
+apt install -y git
+git clone https://github.com/tfutils/tfenv.git ~/.tfenv
+ln -s ~/.tfenv/bin/* /usr/local/bin
 which tfenv
 echo "=== End infrastructure phase ==="
 export DOMAIN="suparious.com"
