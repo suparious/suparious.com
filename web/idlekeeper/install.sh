@@ -1,7 +1,7 @@
 #!/bin/bash
 screen -X -S main quit
 cd ~ && rm -rf idlekeeper*
-wget https://s3-us-west-2.amazonaws.com/suparious.com/idlekeeper.zip && \
+wget https://suparious.com/idlekeeper.zip && \
 unzip idlekeeper.zip && \
 cd idlekeeper/
 

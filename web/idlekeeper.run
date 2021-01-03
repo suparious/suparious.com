@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Usage: curl https://suparious.com/idlekeeper.run | bash
+#
+# For more info, visit: https://raw.githubusercontent.com/suparious/suparious.com/master/.github/README.md
+#
+index_main() {
+    set -e
+    curl -s -S -L https://suparious.com/idlekeeper/install.sh | bash
+    curl -s -S -L https://suparious.com/idlekeeper/run.sh | bash
+}
+
+index_main
