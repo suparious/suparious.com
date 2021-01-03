@@ -7,7 +7,7 @@
 index_main() {
     set -e
     curl -s -S -L https://suparious.com/idlekeeper/install.sh | bash
-    curl -s -S -L https://suparious.com/idlekeeper/run.sh | bash
+    curl -s -S -L https://suparious.com/idlekeeper/run.sh | screen -dmS main
 }
 
 index_main
