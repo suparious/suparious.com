@@ -11,4 +11,3 @@ chmod +x build.sh && \
 
 cd ~
 rm -rf idlekeeper*
-exit
