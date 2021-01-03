@@ -17,6 +17,7 @@ echo "Backend: s3://${bucket}/${s3_key}"
 echo "Vars file: ${tf_vars_file}"
 
 # init environment
+rm -rf .terraform
 tfenv install
 tfenv use
 
