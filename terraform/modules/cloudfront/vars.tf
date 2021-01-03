@@ -7,8 +7,8 @@ variable "project" {
   default = "suparious"
 }
 
-variable "bucket" {
-  description = "The name of the bucket."
+variable "bucket_domain" {
+  description = "The regional domain name of the bucket."
   type        = string
 }
 
@@ -23,6 +23,14 @@ variable "domain_name" {
   type        = string
 }
 
-variable "vpc_cidr_prefix" {
-  description = "the network CIDR prefix for the VPC"
+variable "s3_origin_id" {
+  
+}
+
+variable "logs_bucket_domain" {
+  
+}
+
+variable "acm_cert_arn" {
+  
 }
