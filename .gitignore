@@ -9,6 +9,7 @@ build_args
 *.aes
 aws_deployment.dev
 dockercfg
+*.env
 
 # Terraform
 .terraform
@@ -16,3 +17,8 @@ terraform.tfstate
 terraform.tfstate.backup
 *.pem
 *.lock.hcl
+
+# Archives
+*.gz
+*.tar
+*.zip
