@@ -2,11 +2,11 @@
 set -e
 echo "=== Begin terraform phase ==="
 ls -al
-#cd terraform
-#git clone https://github.com/tfutils/tfenv.git ~/.tfenv
-#ln -s ~/.tfenv/bin/* /usr/local/bin
-#which tfenv
-cd ..
+cd deploy/terraform
+git clone https://github.com/tfutils/tfenv.git ~/.tfenv
+ln -s ~/.tfenv/bin/* /usr/local/bin
+which tfenv
+cd ../..
 echo "=== End terraform phase ==="
 export DOMAIN="suparious.com"
 echo "=== Begin deployment phase ==="
