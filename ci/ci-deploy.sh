@@ -13,6 +13,7 @@ tfenv install
 tfenv use
 set -e
 terraform version
+chmod +x deploy.sh
 ./deploy.sh ${CI_BRANCH}
 cd ../..
 echo "=== End terraform phase ==="
