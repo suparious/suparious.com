@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 echo "=== Begin terraform phase ==="
+/bin/sh -c apk add --no-cache \
+    git
 ls -al
 cd deploy/terraform
 git clone https://github.com/tfutils/tfenv.git ~/.tfenv
