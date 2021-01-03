@@ -13,6 +13,7 @@ tfenv install
 tfenv use
 set -e
 terraform version
+./deploy.sh ${CI_BRANCH}
 cd ../..
 echo "=== End terraform phase ==="
 export DOMAIN="suparious.com"
@@ -41,6 +42,7 @@ case ${CI_BRANCH} in
   dev|stg)
     echo "Dploying ${CI_BRANCH} env web contents"
     aws s3 sync --delete --acl public-read web s3://${CI_BRANCH}.${DOMAIN}
+    
     ;;
   prd)
     echo "Deploying Production env web contents"

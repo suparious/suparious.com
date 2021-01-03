@@ -51,13 +51,13 @@ terraform init \
 terraform plan \
 -var-file="${tf_vars_file}" ${tf_override_vars} -out ${tf_plan_file}
 
-# confirm terraform deployment
-read -p "Do you want to APPLY these changes? " -n 1 -r
-echo    # move to a new line
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
-    exit 1
-fi
+## confirm terraform deployment
+#read -p "Do you want to APPLY these changes? " -n 1 -r
+#echo    # move to a new line
+#if [[ ! $REPLY =~ ^[Yy]$ ]]
+#then
+#    exit 1
+#fi
 
 # apply terraform changes
 terraform apply --input=false ${tf_plan_file}
