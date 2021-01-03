@@ -19,8 +19,8 @@ resource "aws_security_group_rule" "allow_inbound_traffic_1" {
   from_port         = 0
   to_port           = 65535
   protocol          = "all"
-  cidr_blocks       = [aws_subnet.private_app_1.cidr_block]
-  security_group_id = aws_security_group.access_via_nat.id
+  cidr_blocks       = [aws_subnet.private_app_1[count.index].cidr_block]
+  security_group_id = aws_security_group.access_via_nat[count.index].id
 }
 
 resource "aws_security_group_rule" "allow_inbound_traffic_2" {
@@ -29,6 +29,6 @@ resource "aws_security_group_rule" "allow_inbound_traffic_2" {
   from_port         = 0
   to_port           = 65535
   protocol          = "all"
-  cidr_blocks       = [aws_subnet.private_app_2.cidr_block]
-  security_group_id = aws_security_group.access_via_nat.id
+  cidr_blocks       = [aws_subnet.private_app_2[count.index].cidr_block]
+  security_group_id = aws_security_group.access_via_nat[count.index].id
 }

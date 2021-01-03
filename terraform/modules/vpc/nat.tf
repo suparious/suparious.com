@@ -4,7 +4,7 @@ resource "aws_eip" "nat_1" {
 }
 resource "aws_nat_gateway" "nat_1" {
   count         = var.nat_gw ? 1 : 0
-  allocation_id = aws_eip.nat_1.id
+  allocation_id = aws_eip.nat_1[count.index].id
   subnet_id     = aws_subnet.public_nat_1.id
 }
 
@@ -15,7 +15,7 @@ resource "aws_eip" "nat_2" {
 resource "aws_nat_gateway" "nat_2" {
   count = var.nat_gw_multi_az ? 1 : 0
 
-  allocation_id = aws_eip.nat_2.id
+  allocation_id = aws_eip.nat_2[count.index].id
   subnet_id     = aws_subnet.public_nat_2.id
 }
 
@@ -39,7 +39,7 @@ resource "aws_instance" "nat_1" {
   source_dest_check           = false
   subnet_id                   = aws_subnet.public_nat_1.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
+  vpc_security_group_ids      = [aws_security_group.access_via_nat[count.index].id]
 
   tags = merge(var.common_tags, map(
     "Name", "${var.project}-nat-1-${var.env}"
@@ -54,7 +54,7 @@ resource "aws_instance" "nat_2" {
   source_dest_check           = false
   subnet_id                   = aws_subnet.public_nat_2.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.access_via_nat.id]
+  vpc_security_group_ids      = [aws_security_group.access_via_nat[count.index].id]
 
   tags = merge(var.common_tags, map(
     "Name", "${var.project}-nat-2-${var.env}"

@@ -5,7 +5,7 @@ resource "aws_route_table" "nat_gw_1" {
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat_1.id
+    nat_gateway_id = aws_nat_gateway.nat_1[count.index].id
   }
 
   tags = merge(var.common_tags, map(
@@ -14,7 +14,7 @@ resource "aws_route_table" "nat_gw_1" {
 }
 resource "aws_route_table_association" "app_1_subnet_to_nat_gw" {
   count          = var.nat_gw ? 1 : 0
-  route_table_id = aws_route_table.nat_gw_1.id
+  route_table_id = aws_route_table.nat_gw_1[count.index].id
   subnet_id      = aws_subnet.private_app_1.id
 }
 
@@ -25,7 +25,7 @@ resource "aws_route_table" "nat_gw_2" {
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat_2.id
+    nat_gateway_id = aws_nat_gateway.nat_2[count.index].id
   }
 
   tags = merge(var.common_tags, map(
@@ -35,6 +35,6 @@ resource "aws_route_table" "nat_gw_2" {
 
 resource "aws_route_table_association" "app_2_subnet_to_nat_gw" {
   count          = var.nat_gw_multi_az ? 1 : 0
-  route_table_id = aws_route_table.nat_gw_2.id
-  subnet_id      = aws_subnet.private_app_2.id
+  route_table_id = aws_route_table.nat_gw_2[count.index].id
+  subnet_id      = aws_subnet.private_app_2[count.index].id
 }

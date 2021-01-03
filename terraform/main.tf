@@ -39,6 +39,7 @@ module "vpc" {
   project         = var.project
   region          = var.region
   multi_az        = false
+  nat_gw_multi_az = false
   rds             = false
   nat_mode        = "gateway"
   vpc_cidr_prefix = var.vpc_cidr_prefix

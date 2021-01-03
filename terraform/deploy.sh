@@ -17,8 +17,11 @@ echo "Backend: s3://${bucket}/${s3_key}"
 echo "Vars file: ${tf_vars_file}"
 
 # init environment
+echo "Wiping out previous local state"
 rm -rf .terraform
+echo "Installing configured Terraform version"
 tfenv install
+echo "Activating configured Terraform version"
 tfenv use
 
 set -e          # stop execution on failure
@@ -44,11 +47,11 @@ terraform init \
 -get=true \
 -input=false
 
-# plan
+# plan terraform changes
 terraform plan \
 -var-file="${tf_vars_file}" ${tf_override_vars} -out ${tf_plan_file}
 
-# confirm
+# confirm terraform deployment
 read -p "Do you want to APPLY these changes? " -n 1 -r
 echo    # move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
@@ -56,7 +59,7 @@ then
     exit 1
 fi
 
-# apply
+# apply terraform changes
 terraform apply --input=false ${tf_plan_file}
 
 set +e          # return to default shell behavior (continue on failure)

@@ -45,7 +45,7 @@ variable "nat_gw" {
 }
 
 variable "nat_gw_multi_az" {
-  default = true
+  default = false
   // TODO nat_gw_multi_az = "${ local.nat_gw == false ? false : var.multi_az }"
 }
 
