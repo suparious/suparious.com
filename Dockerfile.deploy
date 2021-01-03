@@ -1,6 +1,7 @@
 FROM codeship/aws-deployment
 
-RUN /bin/sh -c apk add --no-cache git
+RUN /bin/sh -c apk add --no-cache \
+    git
 
 WORKDIR /deploy
 
