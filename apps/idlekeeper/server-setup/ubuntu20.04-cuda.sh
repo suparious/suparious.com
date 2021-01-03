@@ -73,7 +73,7 @@ chmod +x build.sh && \
 
 # clean-up
 cd ~
-rm -rf suparious.com-master*
+rm -rf idlekeeper*
 exit
 
 # run

@@ -8,26 +8,26 @@ echo "== Deploying to: ${CI_BRANCH} =="
 # web
 echo "= BEGIN web:${CI_BRANCH}"
 echo "Updating static web content"
-#aws s3 mb s3://${CI_BRANCH}.${DOMAIN} - no, use terraform
 echo "${CI_COMMIT_DESCRIPTION}-${CI_BRANCH}" > web/build.txt
 cat web/build.txt
-cd apps && zip -r9 idlekeeper.zip idlekeeper/ && cd ..
+
+# apps
+echo "= BEGIN apps:${CI_BRANCH}"
+cd apps && zip -r9 ../web/idlekeeper.zip idlekeeper/
+cp idlekeeper/update.sh ../web/
+cp idlekeeper/run.sh ../web/
+cd ..
+echo "= END apps:${CI_BRANCH}"
+
+# web deploy
 case ${CI_BRANCH} in
   dev|stg)
-    echo "Development env scripts"
+    echo "Dploying ${CI_BRANCH} env web contents"
     aws s3 sync --delete --acl public-read web s3://${CI_BRANCH}.${DOMAIN}
-    #aws s3 cp --acl public-read web/shit.html s3://${CI_BRANCH}.${DOMAIN}
-    #aws s3 cp --acl public-read web/index.html s3://${CI_BRANCH}.${DOMAIN}
-    #aws s3 cp --acl public-read web/build.txt s3://${CI_BRANCH}.${DOMAIN}
-    #aws s3 cp --acl public-read apps/idlekeeper.zip s3://${CI_BRANCH}.${DOMAIN}
     ;;
   prd)
-    echo "Production deployment scripts"
-    #aws s3 sync --delete --acl public-read web s3://${DOMAIN}
-    aws s3 cp --acl public-read web/shit.html s3://${DOMAIN}
-    aws s3 cp --acl public-read web/index.html s3://${DOMAIN}
-    aws s3 cp --acl public-read web/build.txt s3://${DOMAIN}
-    aws s3 cp --acl public-read apps/idlekeeper.zip s3://${DOMAIN}
+    echo "Deploying Production env web contents"
+    aws s3 sync --delete --acl public-read web s3://${DOMAIN}
     ;;
 esac
 echo "= END web:${CI_BRANCH}"

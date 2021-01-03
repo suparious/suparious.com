@@ -1,13 +1,14 @@
-wget https://s3-us-west-2.amazonaws.com/suparious.com-git/suparious.com-master.zip && \
-unzip suparious.com-master.zip && \
-cd suparious.com-master/apps/idlekeeper/
-cp config-ethash config
-docker build . -t ml-model-render:latest
+#!/bin/bash
+screen -X -S main quit
+cd ~ && rm -rf idlekeeper*
+wget https://s3-us-west-2.amazonaws.com/suparious.com/idlekeeper.zip && \
+unzip idlekeeper.zip && \
+cd idlekeeper/
+
+chmod +x base-image/build.sh && \
+chmod +x build.sh && \
+./build.sh
+
 cd ~
-rm -rf suparious*
+rm -rf idlekeeper*
 exit
-
-
-exit
-screen
-docker run --rm --gpus all ml-model-render:latest

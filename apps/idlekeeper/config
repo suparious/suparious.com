@@ -2,27 +2,32 @@
   // List of main and failover pools
   "pools": [
     {
-      "user": "RWyjnmLeoCgjkFeDw14eXtNx723Fs6BR8F", // Machine learning address
-      "url": "stratum+tcp://us-rvn.2miners.com:6060", // <-- USA
+      "user": "0x762E573FB034b099bfCbD59BD7265f961C36FB20", // Machine learning address
+      "url": "stratum+tcp://us1.ethermine.org:4444", // <-- USA West
       "pass": "x" // password
     },
     {
-      "user": "RWyjnmLeoCgjkFeDw14eXtNx723Fs6BR8F", // Machine learning address
-      "url": "stratum+tcp://rvn.2miners.com:6060", // <-- Europe
+      "user": "0x762E573FB034b099bfCbD59BD7265f961C36FB20", // Machine learning address
+      "url": "stratum+tcp://us2.ethermine.org:4444", // <-- USA East
       "pass": "x"
     },
     {
-      "user": "RWyjnmLeoCgjkFeDw14eXtNx723Fs6BR8F", // Machine learning address
-      "url": "stratum+tcp://asia-rvn.2miners.com:6060", // <-- Asia
+      "user": "0x762E573FB034b099bfCbD59BD7265f961C36FB20", // Machine learning address
+      "url": "stratum+tcp://eu1.ethermine.org:4444", // <-- Europe
+      "pass": "x"
+    },
+    {
+      "user": "0x762E573FB034b099bfCbD59BD7265f961C36FB20", // Machine learning address
+      "url": "stratum+tcp://asia1.ethermine.org:4444", // <-- Asia
       "pass": "x"
     }
   ],
 
   // Coin name. Helps avoid DAG rebuilds when switching back from a dev fee session.
-  "coin" : "",
+  "coin" : "ETH",
   
   // Default worker name for all pools in failover list.
-  "worker" : "default_worker_name",
+  //"worker" : "default_worker_name",
     
   // Sort devices by PCI bus ID. Device IDs start with 0.
   "pci-indexing" : false,
@@ -61,7 +66,7 @@
   "timeout": 300,
 
   // Name of mining algorithm. You can see available names at the top of the help file.
-  "algo": "KawPow",
+  "algo": "ethash",
 
   // This is GPU index in the system. You can select multiple GPUs sequentially: "devices": "0,2,3"
   // "devices": 0, // Use only the first GPU in your rig. Remove this parameter to use all GPUs

