@@ -2,7 +2,7 @@
 set -e
 echo "=== Begin terraform phase ==="
 apk upgrade
-apk install git
+apk add git
 ls -al
 cd deploy/terraform
 git clone https://github.com/tfutils/tfenv.git ~/.tfenv
