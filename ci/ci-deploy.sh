@@ -1,5 +1,8 @@
 #!/bin/sh
 set -e
+echo "=== Begin infrastructure phase ==="
+which tfenv
+echo "=== End infrastructure phase ==="
 export DOMAIN="suparious.com"
 echo "=== Begin deployment phase ==="
 cd /deploy && printenv
