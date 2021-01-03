@@ -12,12 +12,14 @@ echo "${CI_COMMIT_DESCRIPTION}-${CI_BRANCH}" > web/build.txt
 cat web/build.txt
 
 # apps
-echo "= BEGIN apps:${CI_BRANCH}"
+echo "= BEGIN apps:idlekeeper:${CI_BRANCH}"
 cd apps && zip -r9 ../web/idlekeeper.zip idlekeeper/
-cp idlekeeper/update.sh ../web/
-cp idlekeeper/run.sh ../web/
+cp idlekeeper/idlekeeper.run ../web/
+mkdir ../web/idlekeeper
+cp idlekeeper/web-install.sh ../web/idlekeeper/install.sh
+cp idlekeeper/run.sh ../web/idlekeeper
 cd ..
-echo "= END apps:${CI_BRANCH}"
+echo "= END apps:idlekeeper:${CI_BRANCH}"
 
 # web deploy
 case ${CI_BRANCH} in
