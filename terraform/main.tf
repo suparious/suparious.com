@@ -23,6 +23,7 @@ locals {
   cloudwatch_prefix = "/${var.project}/${var.env}"
   bucket_arn        = module.main_s3.s3_bucket_arn
   s3_origin_id      = "${var.project}-${var.env}"
+  ec2_key_name      = "${var.project}-${var.env}"
 
   common_tags = {
     Project      = var.project
@@ -44,6 +45,21 @@ module "vpc" {
   nat_mode        = "gateway"
   vpc_cidr_prefix = var.vpc_cidr_prefix
   common_tags     = local.common_tags
+}
+
+# security module
+module "security" {
+  source         = "./modules/security"
+  env            = var.env
+  project        = var.project
+  region         = var.region
+  vpc_id         = module.vpc.vpc_id
+  vpc_cidr_block = module.vpc.vpc_cidr_block
+  allowed_admin_ips = [
+    "24.80.112.171/32",
+    "50.92.183.181/32"
+  ]
+  common_tags    = local.common_tags
 }
 
 # main web content storage
@@ -132,4 +148,48 @@ module "cloudfront" {
   s3_origin_id       = local.s3_origin_id
   acm_cert_arn       = aws_acm_certificate.cert.arn
   common_tags        = local.common_tags
+}
+
+# Jenkins server
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
+resource "aws_instance" "jenkins" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3a.small"
+  key_name      = local.ec2_key_name
+  vpc_security_group_ids = [
+    module.security.admin_sg_id,
+    module.security.jenkins_sg_id
+  ]
+  subnet_id            = module.vpc.subnet_public_2
+  iam_instance_profile = module.security.jenkins_iam_profile_name
+  root_block_device {
+    volume_type           = "gp2"
+    volume_size           = 60
+    delete_on_termination = true
+    encrypted             = false
+    #kms_key_id =
+  }
+  associate_public_ip_address = true
+
+  tags = merge(local.common_tags, map(
+    "Name", "${var.project}-jenkins-${var.env}"
+  ))
+  volume_tags = merge(local.common_tags, map(
+    "Name", "${var.project}-jenkins-${var.env}"
+  ))
 }
