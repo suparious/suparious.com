@@ -20,5 +20,12 @@ variable "common_tags" {
 }
 
 variable vpc_id {}
-variable allowed_admin_ips {}
-variable vpc_cidr_block {}
+variable allowed_admin_ip_1 {
+  type = string
+}
+variable allowed_admin_ip_2 {
+  type = string
+}
+variable vpc_cidr_block {
+  type = string
+}

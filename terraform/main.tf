@@ -17,6 +17,11 @@ provider "aws" {
 # discover current identity and save as a map
 data "aws_caller_identity" "current" {}
 
+# external data
+#data "external" "script" {
+#  program = ["bash", "./get_ip.sh"] // get_ip.sh is your script name
+#}
+
 # declare some local vars and common tags
 locals {
   account_id        = data.aws_caller_identity.current.account_id
@@ -49,17 +54,16 @@ module "vpc" {
 
 # security module
 module "security" {
-  source         = "./modules/security"
-  env            = var.env
-  project        = var.project
-  region         = var.region
-  vpc_id         = module.vpc.vpc_id
-  vpc_cidr_block = module.vpc.vpc_cidr_block
-  allowed_admin_ips = [
-    "24.80.112.171/32",
-    "50.92.183.181/32"
-  ]
-  common_tags    = local.common_tags
+  source             = "./modules/security"
+  env                = var.env
+  project            = var.project
+  region             = var.region
+  vpc_id             = module.vpc.vpc_id
+  vpc_cidr_block     = module.vpc.vpc_cidr_block
+  allowed_admin_ip_1 = "24.80.112.171/32"
+  allowed_admin_ip_2 = "50.92.183.181/32"
+
+  common_tags = local.common_tags
 }
 
 # main web content storage
@@ -150,27 +154,45 @@ module "cloudfront" {
   common_tags        = local.common_tags
 }
 
-# Jenkins server
+#################
+## Jenkins server
+# User data and bootstrapping
+data "template_file" "jenkins_user_data" {
+  template = file("${path.cwd}/templates/jenkins-user-data.tpl")
+}
+
+data "template_cloudinit_config" "jenkins_config" {
+  base64_encode = true
+part {
+    content_type = "text/x-shellscript"
+    content      = data.template_file.jenkins_user_data.template
+     }
+  part {
+    content_type = "text/x-shellscript"
+    content  = file("${path.cwd}/templates/ec2_docker_install.sh")
+  }
+}
+
+# Select latest update in ami flavour
 data "aws_ami" "ubuntu" {
   most_recent = true
-
   filter {
     name   = "name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
-
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-
   owners = ["099720109477"] # Canonical
 }
 
+# Create the instance
 resource "aws_instance" "jenkins" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3a.small"
   key_name      = local.ec2_key_name
+  user_data     = data.template_cloudinit_config.jenkins_config.rendered
   vpc_security_group_ids = [
     module.security.admin_sg_id,
     module.security.jenkins_sg_id
@@ -185,7 +207,6 @@ resource "aws_instance" "jenkins" {
     #kms_key_id =
   }
   associate_public_ip_address = true
-
   tags = merge(local.common_tags, map(
     "Name", "${var.project}-jenkins-${var.env}"
   ))
