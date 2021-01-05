@@ -4,8 +4,8 @@ exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 
 echo "BEGIN"
 
-export ENV_NAME=${EnvName}
-echo "${EnvName}" > /opt/env
+export ENV_NAME="${project}-${env}"
+echo "${project}-${env}" > /opt/env
 
 ### MOUNT EBS DRIVE (Jenkins Data Storage in-case of EC2 Migration)
 
@@ -42,7 +42,7 @@ ln -s /data/docker docker
 
 # Grab the provision script from s3
 
-until aws s3 cp --recursive s3://${JenkinsBucket} /; do
+until aws s3 cp --recursive s3://${bucket} /; do
     echo "Trying to copy S3 files down to EC2."
     sleep 10
 done

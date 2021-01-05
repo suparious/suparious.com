@@ -23,12 +23,21 @@ echo "Installing configured Terraform version"
 tfenv install
 echo "Activating configured Terraform version"
 tfenv use
-
+echo "activating execution break on fail"
 set -e          # stop execution on failure
-# check
-INSTALLED=$(terraform version | head -n 1 | sed 's/Terraform v//')
-DESIRED=$(cat .terraform-version)
 
+# check
+echo "checking installed terraform version"
+#INSTALLED=$(terraform version | head -n 1 | sed 's/Terraform v//')
+echo "making fuckyou file"
+terraform version | head -n 1 > fuckyou.txt
+echo "cleaning the var"
+INSTALLED=$(cat fuckyou.txt | sed 's/Terraform v//')
+echo "removing fuckyou file"
+rm fuckyou.txt
+echo "declaring desired version"
+DESIRED=$(cat .terraform-version)
+echo "comparing installed and desired versions"
 if [ "$INSTALLED" = "$DESIRED" ]; then
     echo "Terraform version is matching"
 else
@@ -38,6 +47,7 @@ else
 fi
 
 # init terraform
+echo "initializing terraform state"
 terraform init \
 -backend-config="bucket=${bucket}" \
 -backend-config="key=${s3_key}" \
@@ -48,6 +58,7 @@ terraform init \
 -input=false
 
 # plan terraform changes
+echo "planning terraform changes"
 terraform plan \
 -var-file="${tf_vars_file}" ${tf_override_vars} -out ${tf_plan_file}
 
@@ -60,6 +71,7 @@ terraform plan \
 #fi
 
 # apply terraform changes
+echo "applying terraform changes"
 terraform apply --input=false ${tf_plan_file}
 
 set +e          # return to default shell behavior (continue on failure)

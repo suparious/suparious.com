@@ -157,19 +157,12 @@ module "cloudfront" {
 #################
 ## Jenkins server
 # User data and bootstrapping
-data "template_file" "jenkins_user_data" {
-  template = file("${path.cwd}/templates/jenkins-user-data.tpl")
-}
-
 data "template_cloudinit_config" "jenkins_config" {
+  #gzip          = true
   base64_encode = true
-part {
-    content_type = "text/x-shellscript"
-    content      = data.template_file.jenkins_user_data.template
-     }
   part {
     content_type = "text/x-shellscript"
-    content  = file("${path.cwd}/templates/ec2_docker_install.sh")
+    content  = file("${path.cwd}/templates/ec2_docker_install.tpl")
   }
 }
 

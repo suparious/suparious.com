@@ -1,6 +1,12 @@
 #!/bin/bash
-sudo apt-get update
-sudo apt-get -y install \
+#!/bin/bash
+
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+
+echo "BEGIN"
+
+apt-get update
+apt-get -y install \
     git \
     unzip \
     wget \
@@ -14,13 +20,16 @@ sudo apt-get -y install \
     linux-headers-$(uname -r) \
     build-essential
 
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-sudo add-apt-repository \
+curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
 
-sudo apt-get update
-sudo apt-get -y install \
+apt-get update
+apt-get -y install \
     docker-ce docker-ce-cli containerd.io
-sudo usermod -aG docker ubuntu
+
+usermod -aG docker ubuntu
+
+echo "END"
