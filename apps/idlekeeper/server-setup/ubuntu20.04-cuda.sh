@@ -38,3 +38,25 @@ sudo apt-get update
 sudo apt-get install \
     docker-ce docker-ce-cli containerd.io
     
+# enable current user access
+sudo usermod -aG docker ubuntu
+sudo su - ubuntu
+
+# test docker
+#sudo systemctl status docker
+docker ps
+
+# nvidia-docker2
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+   && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
+   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+#curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+#curl -s -L https://nvidia.github.io/nvidia-docker/debian10/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+sudo apt-get update
+sudo apt-get install -y nvidia-docker2
+#sudo ln -s /sbin/ldconfig /sbin/ldconfig.real
+sudo systemctl restart docker
+
+# test
+sudo docker run --rm --gpus all nvidia/cuda:11.1-base nvidia-smi
