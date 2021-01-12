@@ -25,4 +25,3 @@ check:
 install:
 	#dep ensure -v
 	go install api
-
