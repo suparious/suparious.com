@@ -304,3 +304,19 @@ If you updated an addon and wish to reload it without restarting the server, you
 
 API Key
 E646DF0C454DA3DF18E47280E11A42D8
+
+
+## Kits
+
+```
+/kit add autokit
+/kit items authlevel 2 hide true
+
+/kit add builder
+/kit items max 3 cooldown 86400
+
+/kit add scuba
+/kit items max 5 cooldown 3600
+
+
+```
