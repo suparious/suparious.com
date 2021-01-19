@@ -1,0 +1,4 @@
+{
+  "AutoEvent (enables auto event spawns)": true,
+  "AutoEventDuration (time until new event spawns)": 1800.0
+}

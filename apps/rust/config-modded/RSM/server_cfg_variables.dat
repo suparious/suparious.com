@@ -1,0 +1,9 @@
+﻿server.tickrate=30
+server.saveinterval=900
+server.itemdespawn=30
+server.respawnresetrange=10
+spawn.min_rate=1.7
+spawn.max_rate=2
+spawn.min_density=1.7
+spawn.max_density=2
+=
