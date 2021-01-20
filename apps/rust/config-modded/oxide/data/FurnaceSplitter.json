@@ -1,0 +1,61 @@
+{
+  "AllPlayerOptions": {
+    "76561198886543733": {
+      "Enabled": true,
+      "TotalStacks": {
+        "furnace": 3,
+        "furnace.static": 15,
+        "furnace_static": 15,
+        "bbq.deployed": 9,
+        "bbq.static": 9,
+        "campfire": 2,
+        "campfire.static": 2,
+        "cursedcauldron.deployed": 2,
+        "fireplace.deployed": 2,
+        "furnace.large": 15,
+        "hobobarrel_static": 2,
+        "refinery_small_deployed": 3,
+        "small_refinery_static": 3,
+        "skull_fire_pit": 2
+      }
+    },
+    "76561198024774727": {
+      "Enabled": true,
+      "TotalStacks": {
+        "furnace": 3,
+        "furnace.static": 15,
+        "furnace_static": 15,
+        "bbq.deployed": 9,
+        "bbq.static": 9,
+        "campfire": 2,
+        "campfire.static": 2,
+        "cursedcauldron.deployed": 2,
+        "fireplace.deployed": 2,
+        "furnace.large": 15,
+        "hobobarrel_static": 2,
+        "refinery_small_deployed": 3,
+        "small_refinery_static": 3,
+        "skull_fire_pit": 2
+      }
+    },
+    "76561199130225520": {
+      "Enabled": true,
+      "TotalStacks": {
+        "furnace": 3,
+        "furnace.static": 15,
+        "furnace_static": 15,
+        "bbq.deployed": 9,
+        "bbq.static": 9,
+        "campfire": 2,
+        "campfire.static": 2,
+        "cursedcauldron.deployed": 2,
+        "fireplace.deployed": 2,
+        "furnace.large": 15,
+        "hobobarrel_static": 2,
+        "refinery_small_deployed": 3,
+        "small_refinery_static": 3,
+        "skull_fire_pit": 2
+      }
+    }
+  }
+}

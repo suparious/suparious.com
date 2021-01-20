@@ -1,0 +1,38 @@
+[
+  {
+    "playerID": "76561198886543733",
+    "Transparency": 0.95,
+    "SellBoxColors": "1 1 1 0.15",
+    "BuyBoxColors": "1 1 1 0.15",
+    "UITextColor": "1 1 1 1",
+    "rangeValue": 4.9999999999999929,
+    "ImageOrText": false
+  },
+  {
+    "playerID": "76561198024774727",
+    "Transparency": 0.95,
+    "SellBoxColors": "1 1 1 0.15",
+    "BuyBoxColors": "1 1 1 0.15",
+    "UITextColor": "1 1 1 1",
+    "rangeValue": 4.9999999999999929,
+    "ImageOrText": false
+  },
+  {
+    "playerID": "76561198886543733",
+    "Transparency": 0.95,
+    "SellBoxColors": "1 1 1 0.15",
+    "BuyBoxColors": "1 1 1 0.15",
+    "UITextColor": "1 1 1 1",
+    "rangeValue": 4.9999999999999929,
+    "ImageOrText": false
+  },
+  {
+    "playerID": "76561198024774727",
+    "Transparency": 0.95,
+    "SellBoxColors": "1 1 1 0.15",
+    "BuyBoxColors": "1 1 1 0.15",
+    "UITextColor": "1 1 1 1",
+    "rangeValue": 4.9999999999999929,
+    "ImageOrText": false
+  }
+]

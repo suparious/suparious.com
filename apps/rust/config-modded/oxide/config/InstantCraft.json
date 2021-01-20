@@ -2,11 +2,9 @@
   "Check for free place": false,
   "Split crafted stacks": false,
   "Normal Speed": [
-    "hammer",
-    "put item shortname here"
+    "hammer"
   ],
   "Blacklist": [
-    "rock",
-    "put item shortname here"
+    "rock"
   ]
 }

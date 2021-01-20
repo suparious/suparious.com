@@ -6,6 +6,32 @@
       "Skins": [
         0
       ]
+    },
+    {
+      "Item Shortname": "Apocalypse",
+      "Skins": [
+        0
+      ]
+    },
+    {
+      "Item Shortname": "horse.armor.roadsign",
+      "Skins": [
+        0,
+        60528587
+      ]
+    },
+    {
+      "Item Shortname": "welding.helmet",
+      "Skins": [
+        0
+      ]
+    },
+    {
+      "Item Shortname": "coffeecan.helmet",
+      "Skins": [
+        0,
+        854460770
+      ]
     }
   ],
   "Container Panel Name": "generic",

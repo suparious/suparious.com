@@ -4,7 +4,9 @@
       "description": "Welcome on this server! Here is a list of free kits that you can get.<color=green>Enjoy your stay</color>",
       "kits": [
         "kit1",
-        "kit2"
+        "kit2",
+        "builder",
+        "scuba"
       ]
     },
     "1235439": {

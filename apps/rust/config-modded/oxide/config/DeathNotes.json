@@ -259,10 +259,12 @@
       }
     ],
     "Names": {
-      "Boar": "Boar"
+      "Boar": "Boar",
+      "Helicopter": "Helicopter"
     },
     "Bodyparts": {
-      "Leg": "Leg"
+      "Leg": "Leg",
+      "Body": "Body"
     },
     "Weapons": {
       "Semi-Automatic Rifle": "Semi-Automatic Rifle"

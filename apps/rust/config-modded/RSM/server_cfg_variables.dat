@@ -6,4 +6,5 @@ spawn.min_rate=1.7
 spawn.max_rate=2
 spawn.min_density=1.7
 spawn.max_density=2
+fps.limit=256
 =

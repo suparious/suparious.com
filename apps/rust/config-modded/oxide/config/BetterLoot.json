@@ -1,6 +1,6 @@
 {
   "Generic": {
-    "blueprintProbability": 0.11,
+    "blueprintProbability": 0.2,
     "listUpdatesOnLoaded": true,
     "removeStackedContainers": true,
     "WatchedPrefabs": [
@@ -42,10 +42,10 @@
     ]
   },
   "Loot": {
-    "enableHammerLootCycle": false,
+    "enableHammerLootCycle": true,
     "hammerLootCycleTime": 3,
-    "lootMultiplier": 1,
-    "scrapMultiplier": 1
+    "lootMultiplier": 1000,
+    "scrapMultiplier": 100
   },
   "Rarity": {
     "Override": {

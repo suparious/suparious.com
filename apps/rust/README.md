@@ -338,3 +338,7 @@ oxide.grant group admin adminpanel.allowed
 oxide.grant group admin removertool.admin
 # https://www.gameserverkings.com/knowledge-base/rust/oxide-permissions-101/
 ```
+
+
+6000
+7880972

@@ -1,0 +1,18 @@
+{
+  "Lockouts": {},
+  "Players": {},
+  "UI": {
+    "76561198886543733": {
+      "Enabled": true,
+      "Lockouts": true,
+      "Status": true
+    },
+    "76561198024774727": {
+      "Enabled": true,
+      "Lockouts": true,
+      "Status": true
+    }
+  },
+  "RaidTime": "01/01/0001 00:00:00",
+  "TotalEvents": 0
+}
