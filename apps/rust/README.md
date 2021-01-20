@@ -318,5 +318,23 @@ E646DF0C454DA3DF18E47280E11A42D8
 /kit add scuba
 /kit items max 5 cooldown 3600
 
+/kit add vip1
+/kit items max 2 permission vip
 
+```
+
+
+```
+o.reload Kits
+
+oxide.show groups
+oxide.show perms
+
+oxide.usergroup add suparious admin
+
+oxide.grant group admin skins.admin
+oxide.grant group admin kits.admin
+oxide.grant group admin adminpanel.allowed
+oxide.grant group admin removertool.admin
+# https://www.gameserverkings.com/knowledge-base/rust/oxide-permissions-101/
 ```
