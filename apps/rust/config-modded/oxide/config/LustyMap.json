@@ -32,7 +32,7 @@
   "Marker Options": {
     "Show all players": false,
     "Show cars (un-occupied only)": true,
-    "Show caves": false,
+    "Show caves": true,
     "Show debris": false,
     "Show friends and clanmates": true,
     "Show helicopters": true,

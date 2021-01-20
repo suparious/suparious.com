@@ -32,7 +32,7 @@
     "npcID": []
   },
   "ServerRewards": {
-    "Enabled": false,
+    "Enabled": true,
     "Jackpot": 10,
     "JackpotMatch": 1869,
     "Match": [

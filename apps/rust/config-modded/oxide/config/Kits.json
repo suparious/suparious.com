@@ -3,8 +3,6 @@
     "0": {
       "description": "Welcome on this server! Here is a list of free kits that you can get.<color=green>Enjoy your stay</color>",
       "kits": [
-        "kit1",
-        "kit2",
         "builder",
         "scuba"
       ]
@@ -38,7 +36,7 @@
   "Kit - Logging": false,
   "Show All Kits": false,
   "Background - URL": "",
-  "Wipe kit data on map wipe": false,
+  "Wipe kit data on map wipe": true,
   "Kit Names & Cooldowns - Cooldowns (minutes)": {
     "kitName1": 20.0,
     "kitName2": 30.0

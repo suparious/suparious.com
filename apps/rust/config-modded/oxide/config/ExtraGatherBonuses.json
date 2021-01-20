@@ -40,7 +40,7 @@
     },
     {
       "Item gathered to get bonus": "sulfur.ore",
-      "Permission": "extragatherbonuses.vip",
+      "Permission": "extragatherbonuses.default",
       "Maximal items that player can get by once": 1,
       "Bonus list": [
         {

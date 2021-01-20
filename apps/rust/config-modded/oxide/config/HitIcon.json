@@ -11,7 +11,7 @@
   },
   "Configuration": {
     "Damage text size": 15,
-    "Show clan member damage": false,
+    "Show clan member damage": true,
     "Show damage": true,
     "Show death kill": true,
     "Show friend damage": true,
@@ -23,7 +23,7 @@
     "Time to destroy": 0.45,
     "Use Clans": true,
     "Use Friends": true,
-    "Use sound when clan/friends get attacked": false,
+    "Use sound when clan/friends get attacked": true,
     "When clan/friends get attacked sound fx": "assets/prefabs/instruments/guitar/effects/guitarpluck.prefab"
   },
   "Version": {

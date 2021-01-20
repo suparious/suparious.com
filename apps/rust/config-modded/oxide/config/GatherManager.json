@@ -25,10 +25,10 @@
     "SurveyCharges": "Survey Charges"
   },
   "Options": {
-    "ExcavatorBeltSpeedMax": 0.1,
+    "ExcavatorBeltSpeedMax": 0.7,
     "ExcavatorResourceModifiers": {},
     "ExcavatorResourceTickRate": 3.0,
-    "ExcavatorTimeForFullResources": 120.0,
+    "ExcavatorTimeForFullResources": 60.0,
     "GatherDispenserModifiers": {},
     "GatherResourceModifiers": {},
     "MiningQuarryResourceTickRate": 5.0,

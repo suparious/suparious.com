@@ -40,5 +40,5 @@
     "Icon_Delivery": "deliveryicon",
     "Icon_Vendor": "vendoricon"
   },
-  "UseNPCVendors": false
+  "UseNPCVendors": true
 }

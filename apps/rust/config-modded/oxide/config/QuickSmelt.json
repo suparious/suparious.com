@@ -1,5 +1,5 @@
 {
-  "Use Permission": true,
+  "Use Permission": false,
   "Speed Multipliers": {
     "global": 1.0,
     "furnace.shortname": 1.0

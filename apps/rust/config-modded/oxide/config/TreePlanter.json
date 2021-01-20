@@ -63,7 +63,7 @@
     }
   ],
   "OwnerOnly": false,
-  "UseCurrency": false,
-  "UseEconomics": false,
+  "UseCurrency": true,
+  "UseEconomics": true,
   "UseServerRewards": true
 }

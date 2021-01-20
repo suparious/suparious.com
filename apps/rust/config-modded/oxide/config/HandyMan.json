@@ -7,6 +7,6 @@
     "Repair Cost Multiplier": 1.0,
     "Repair Deployables": false,
     "Repair Range": 50,
-    "Use Raid Blocker": false
+    "Use Raid Blocker": true
   }
 }

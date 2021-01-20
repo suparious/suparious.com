@@ -37,8 +37,8 @@
     "Maximum Temp": 40.0,
     "Blocked Items": {},
     "Bypass CMD": "pay",
-    "Use Economics": false,
-    "Use Server Rewards": false,
+    "Use Economics": true,
+    "Use Server Rewards": true,
     "Wipe On Upgrade Or Change": false,
     "Auto Generate Outpost Location": false,
     "Auto Generate Bandit Location": false

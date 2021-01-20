@@ -1,8 +1,8 @@
 {
   "CanDespawnWhileOccupied": false,
-  "CanFetchWhileBuildingBlocked": false,
-  "CanFetchWhileOccupied": false,
-  "CanSpawnWhileBuildingBlocked": false,
+  "CanFetchWhileBuildingBlocked": true,
+  "CanFetchWhileOccupied": true,
+  "CanSpawnWhileBuildingBlocked": true,
   "Cooldowns": {
     "FetchCarSeconds": 10.0,
     "FixCarSeconds": 60.0,
