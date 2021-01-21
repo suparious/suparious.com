@@ -11,6 +11,11 @@
       "Enabled": true,
       "Lockouts": true,
       "Status": true
+    },
+    "76561199130225520": {
+      "Enabled": true,
+      "Lockouts": true,
+      "Status": true
     }
   },
   "RaidTime": "01/01/0001 00:00:00",

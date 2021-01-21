@@ -3,23 +3,23 @@
     "76561198886543733": {
       "DisplayName": "SmokeQc",
       "Stats": {
-        "AnimalKills": 1,
+        "AnimalKills": 2,
         "ArrowKills": 0,
         "ClothesCrafted": 0,
         "Headshots": 0,
-        "PlantsGathered": 2,
+        "PlantsGathered": 14,
         "PlayersHealed": 0,
         "PlayersKilled": 0,
         "MeleeKills": 0,
         "RevolverKills": 0,
         "RocketsFired": 0,
-        "RocksGathered": 550,
+        "RocksGathered": 26300,
         "BladeKills": 0,
-        "StructuresBuilt": 0,
+        "StructuresBuilt": 21,
         "StructuresRepaired": 0,
         "ExplosivesThrown": 0,
         "WeaponsCrafted": 0,
-        "WoodGathered": 50,
+        "WoodGathered": 12469,
         "QuestsCompleted": 0,
         "PVPKillDistance": 0,
         "PVEKillDistance": 16,
@@ -61,7 +61,7 @@
     "AnimalKills": {
       "UserID": 76561198886543733,
       "DisplayName": "SmokeQc",
-      "Count": 1
+      "Count": 2
     },
     "ArrowKills": {
       "UserID": 0,
@@ -81,7 +81,7 @@
     "PlantsGathered": {
       "UserID": 76561198886543733,
       "DisplayName": "SmokeQc",
-      "Count": 2
+      "Count": 14
     },
     "PlayersHealed": {
       "UserID": 0,
@@ -111,7 +111,7 @@
     "RocksGathered": {
       "UserID": 76561198886543733,
       "DisplayName": "SmokeQc",
-      "Count": 550
+      "Count": 26300
     },
     "BladeKills": {
       "UserID": 0,
@@ -119,9 +119,9 @@
       "Count": 0
     },
     "StructuresBuilt": {
-      "UserID": 0,
-      "DisplayName": null,
-      "Count": 0
+      "UserID": 76561198886543733,
+      "DisplayName": "SmokeQc",
+      "Count": 21
     },
     "StructuresRepaired": {
       "UserID": 0,
@@ -141,7 +141,7 @@
     "WoodGathered": {
       "UserID": 76561198886543733,
       "DisplayName": "SmokeQc",
-      "Count": 50
+      "Count": 12469
     },
     "QuestsCompleted": {
       "UserID": 0,

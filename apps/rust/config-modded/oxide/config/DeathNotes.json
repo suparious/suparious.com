@@ -260,16 +260,22 @@
     ],
     "Names": {
       "Boar": "Boar",
-      "Helicopter": "Helicopter"
+      "Helicopter": "Helicopter",
+      "Wolf": "Wolf",
+      "Scientist Sentry": "Scientist Sentry"
     },
     "Bodyparts": {
       "Leg": "Leg",
-      "Body": "Body"
+      "Body": "Body",
+      "Head": "Head"
     },
     "Weapons": {
       "Semi-Automatic Rifle": "Semi-Automatic Rifle"
     },
-    "Attachments": {}
+    "Attachments": {
+      "Holosight": "Holosight",
+      "Weapon flashlight": "Weapon flashlight"
+    }
   },
   "Variable Formats": {
     "attachments": " ({value})"
