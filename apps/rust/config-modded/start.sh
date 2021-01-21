@@ -1,8 +1,11 @@
 #!/bin/bash
+GAME_DIR=$HOME   # same as "~/" but better for scripting
 jizz=true
-cd rust_modded
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/rust_modded/RustDedicated_Data/Plugins/x86_64
+cd ${GAME_DIR}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${GAME_DIR}/RustDedicated_Data/Plugins/x86_64
 while ${jizz} = true; do
+echo "Starting up RustDedicated in: ${GAME_DIR}"
+LOG_DATE=$(date +"%Y_%m_%d_%I_%M_%p")
 ./RustDedicated -batchmode -nographics -silent-crashes \
     -server.ip 0.0.0.0 \
     -server.port 28015 \
@@ -26,6 +29,7 @@ while ${jizz} = true; do
     -dispenser.scale tree 10 \
     -dispenser.scale ore 10 \
     -dispenser.scale corpse 10 \
-    -logfile 2>&1 "$(date +"%Y_%m_%d_%I_%M_%p").log"
+    -logfile 2>&1 "RustDedicated-${LOG_DATE}.log"
+echo "Restarting server, latest logs are in: ${GAME_DIR}/RustDedicated-${LOG_DATE}.log"
 done
 cd

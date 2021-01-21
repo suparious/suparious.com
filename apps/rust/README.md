@@ -128,13 +128,22 @@ rm Oxide.Rust.zip
 wget https://umod.org/extensions/discord/download -O ~/RustDedicated_Data/Managed/Oxide.Ext.Discord.dll
 wget http://playrust.io/latest -O ~/RustDedicated_Data/Managed/Oxide.Ext.RustIO.dll
 
-`TODO: wget https://suparious.com/apps/rust-nolag/release.zip`
-
+wget https://suparious.com/apps/rust/release.zip
 unzip release.zip
 rsync -rv suparious.com-master/apps/rust/config-modded/oxide oxide
+rsync -rv suparious.com-master/apps/rust/config-modded/start.sh start.sh
 
 rm -rf suparious.com-master
 rm release.zip
+```
+
+## Start the server
+
+Starting the server for the first time helps generate the server data so we can validate our plugins. Once the server is fully started and working, use `ctrl + c` and wait for it to shutdown gracefully.
+
+```bash
+chmod +x start.sh
+./start.sh
 ```
 
 ## Optional Customizations and final notes
