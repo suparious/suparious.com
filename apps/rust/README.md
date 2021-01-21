@@ -47,6 +47,7 @@ sudo apt-get -y install \
     ca-certificates \
     curl \
     wget \
+    htop \
     gnupg-agent \
     gnupg2 \
     software-properties-common \
