@@ -111,6 +111,7 @@ Assuming you will only be running this one game on the server, install to your h
 
 ```bash
 # As the game server user
+steamcmd +login anonymous +force_install_dir ~/ +app_update 258550 +quit
 steamcmd +login anonymous +force_install_dir ~/ +app_update 258550 validate +quit
 ```
 
@@ -123,19 +124,19 @@ In this example, RustDedicated is installed in `~/`, so we will put Oxide files 
 ```bash
 # As the game server user
 cd ~/
-wget https://umod.org/games/rust/download -O Oxide.Rust.zip
+wget https://umod.org/games/rust/download/develop -O Oxide.Rust.zip
 unzip -o Oxide.Rust.zip
 rm Oxide.Rust.zip
 wget https://umod.org/extensions/discord/download -O ~/RustDedicated_Data/Managed/Oxide.Ext.Discord.dll
 wget http://playrust.io/latest -O ~/RustDedicated_Data/Managed/Oxide.Ext.RustIO.dll
 
-wget https://suparious.com/apps/rust/release.zip
-unzip release.zip
-rsync -rv suparious.com-master/apps/rust/config-modded/oxide oxide
+wget https://suparious.com/apps/rust/release-1.0.0.zip
+unzip release-1.0.0.zip
+rsync -rv suparious.com-master/apps/rust/config-modded/oxide/ oxide
+rsync -rv suparious.com-master/apps/rust/config-modded/server/rust/cfg/ server/rust/cfg
 rsync -rv suparious.com-master/apps/rust/config-modded/start.sh start.sh
-
-rm -rf suparious.com-master
-rm release.zip
+rm -rf suparious.com-*
+rm release*
 ```
 
 ## Start the server
