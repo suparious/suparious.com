@@ -57,6 +57,7 @@ sudo apt-get -y install \
     lib32stdc++6 \
     unzip \
     binutils \
+    rsync \
     bc \
     jq \
     tmux \
@@ -127,32 +128,13 @@ rm Oxide.Rust.zip
 wget https://umod.org/extensions/discord/download -O ~/RustDedicated_Data/Managed/Oxide.Ext.Discord.dll
 wget http://playrust.io/latest -O ~/RustDedicated_Data/Managed/Oxide.Ext.RustIO.dll
 
-# start the server, wait for it to fully load-up, then stop it gracefully, with 'Ctrl+C' only once.
-./RustDedicated -batchmode -nographics \
-    -server.ip 0.0.0.0 \
-    -server.port 28015 \
-    -rcon.ip 0.0.0.0 \
-    -rcon.port 28016 \
-    -rcon.web 1 \
-    -rcon.password "NOFAGS" \
-    -server.tickrate 30 \
-    -server.level "Procedural Map" \
-    -server.hostname "[West] Suparious|perfect mods|NoLag|AlphaTest" \
-    -server.identity "suparious-rust-west-modded" \
-    -server.url "https://suparious.com/" \
-    -server.headerimage "http://suparious.com/images/suparious_logo.png" \
-    -server.globalchat true \
-    -falldamage.enabled true \
-    -server.maxplayers 240 \
-    -server.worldsize 4500 \
-    -server.seed 280 \
-    -server.saveinterval 900 \
-    -server.itemdespawn 30 \
-    -server.respawnresetrange 10 \
-    -spawn.min_rate 1.7 ^ \
-    -spawn.max_rate 2 \
-    -spawn.min_density 1.7 ^ \
-    -spawn.max_density 2
+`TODO: wget https://suparious.com/apps/rust-nolag/release.zip`
+
+unzip release.zip
+rsync -rv suparious.com-master/apps/rust/config-modded/oxide oxide
+
+rm -rf suparious.com-master
+rm release.zip
 ```
 
 ## Optional Customizations and final notes
@@ -195,26 +177,4 @@ oxide.grant group admin removertool.admin
 ```
 size: 6000
 seed: 7880972
-```
-
-### Gather Rates
-
-```
-gather.rate dispenser Wood 5
-gather.rate dispenser Stones 4
-gather.rate dispenser "Sulfur Ore" 5
-gather.rate dispenser "Metal Ore" 5
-gather.rate dispenser Cloth 10
-gather.rate dispenser Scrap 10
-gather.rate pickup wood 10
-gather.rate pickup Stones 10
-gather.rate pickup Cloth 10
-#gather.rate pickup Scrap 10
-#gather.rate pickup "Metal Pipe" 10
-gather.rate pickup "Sulfur Ore" 10
-gather.rate pickup "Metal Ore" 10
-gather.rate quarry Stones 10
-gather.rate survey "Sulfur Ore" 10
-
-server.writecfg
 ```
