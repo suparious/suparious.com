@@ -342,3 +342,18 @@ oxide.grant group admin removertool.admin
 
 6000
 7880972
+
+gather.rate dispenser Wood 5
+gather.rate dispenser Stones 4
+gather.rate dispenser "Sulfur Ore" 5
+gather.rate dispenser "Metal Ore" 5
+gather.rate dispenser Cloth 10
+gather.rate pickup wood 10
+gather.rate pickup Stones 10
+gather.rate pickup Cloth 10
+gather.rate pickup "Sulfur Ore" 10
+gather.rate pickup "Metal Ore" 10
+gather.rate quarry Stones 10
+gather.rate survey "Sulfur Ore" 10
+
+server.writecfg
