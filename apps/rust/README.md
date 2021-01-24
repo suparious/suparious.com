@@ -174,12 +174,44 @@ o.reload Kits
 oxide.show groups
 oxide.show perms
 
+oxide.grant group default removertool.normal
+oxide.grant group default instantcraft.use
+oxide.grant group default quicksmelt.use
+oxide.grant group default recyclerspeed.use
+oxide.grant group default bgrade.all
+oxide.grant group default fuelgauge.allow
+
+oxide.grant group default pets.bear
+oxide.grant group default pets.boar
+oxide.grant group default pets.chicken
+oxide.grant group default pets.horse
+oxide.grant group default pets.stag
+oxide.grant group default pets.wolf
+
+
+oxide.group add GM
+
 oxide.usergroup add suparious admin
+oxide.usergroup add ThePastaMasta GM
+oxide.usergroup add SmokeQC dev
+oxide.usergroup remove suparious default
+oxide.usergroup remove ThePastaMasta default
+oxide.usergroup remove SmokeQc default
+
+oxide.group parent admin default
+oxide.group parent GM admin
+oxide.group parent dev default
+
+ownerid 76561198206550912 "ThePastaMasta"
+server.writecfg
 
 oxide.grant group admin skins.admin
 oxide.grant group admin kits.admin
 oxide.grant group admin adminpanel.allowed
 oxide.grant group admin removertool.admin
+oxide.grant group admin removertool.all
+oxide.grant group admin guardedcrate.use
+# https://www.corrosionhour.com/umod-permissions-guide/
 # https://www.gameserverkings.com/knowledge-base/rust/oxide-permissions-101/
 ```
 
