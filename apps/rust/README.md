@@ -168,28 +168,21 @@ chmod +x start.sh
 o.reload Kits
 ```
 
-### Permissions
+### User and Group Permissions
 
 ```
+ownerid 76561198024774727 "Suparious"
+ownerid 76561198206550912 "ThePastaMasta"
+server.writecfg
+
 oxide.show groups
 oxide.show perms
 
-oxide.grant group default removertool.normal
-oxide.grant group default instantcraft.use
-oxide.grant group default quicksmelt.use
-oxide.grant group default recyclerspeed.use
-oxide.grant group default bgrade.all
-oxide.grant group default fuelgauge.allow
-
-oxide.grant group default pets.bear
-oxide.grant group default pets.boar
-oxide.grant group default pets.chicken
-oxide.grant group default pets.horse
-oxide.grant group default pets.stag
-oxide.grant group default pets.wolf
-
-
 oxide.group add GM
+oxide.group add dev
+oxide.group parent admin default
+oxide.group parent GM admin
+oxide.group parent dev default
 
 oxide.usergroup add suparious admin
 oxide.usergroup add ThePastaMasta GM
@@ -198,12 +191,53 @@ oxide.usergroup remove suparious default
 oxide.usergroup remove ThePastaMasta default
 oxide.usergroup remove SmokeQc default
 
-oxide.group parent admin default
-oxide.group parent GM admin
-oxide.group parent dev default
+oxide.grant group default removertool.normal
+oxide.grant group default instantcraft.use
+oxide.grant group default quicksmelt.use
+oxide.grant group default recyclerspeed.use
+oxide.grant group default bgrade.all
+oxide.grant group default fuelgauge.allow
+oxide.grant group default pets.bear
+oxide.grant group default pets.boar
+oxide.grant group default pets.chicken
+oxide.grant group default pets.horse
+oxide.grant group default pets.stag
+oxide.grant group default pets.wolf
+oxide.grant group default skins.use
+oxide.grant group default trade.use
+oxide.grant group default trade.accept
 
-ownerid 76561198206550912 "ThePastaMasta"
-server.writecfg
+oxide.grant group default nteleportation.home - /home, /sethome, /removehome
+oxide.grant group default nteleportation.deletehome - /home delete & /deletehome
+oxide.grant group default nteleportation.homehomes - /home homes & /homehomes
+oxide.grant group default nteleportation.importhomes - teleport.importhomes
+oxide.grant group default nteleportation.radiushome - /home radius & /radiushome
+oxide.grant group default nteleportation.tpb - /tpb
+oxide.grant group default nteleportation.tpr - /tpr
+oxide.grant group default nteleportation.tphome - /home tp and /tphome
+oxide.grant group default nteleportation.tptown - /town
+oxide.grant group default nteleportation.tpoutpost - /outpost
+oxide.grant group default nteleportation.tpbandit - /bandit
+oxide.grant group default nteleportation.tpn - /tpn
+oxide.grant group default nteleportation.tpl - /tpl
+oxide.grant group default nteleportation.tpremove - /tpremove
+oxide.grant group default nteleportation.tpsave - /tpsave
+oxide.grant group default nteleportation.wipehomes - /wipehomes
+oxide.grant group default nteleportation.crafthome - allow craft during home tp
+oxide.grant group default nteleportation.crafttown - allow craft during town tp
+oxide.grant group default nteleportation.craftoutpost - allow craft during outpost tp
+oxide.grant group default nteleportation.craftbandit - allow craft during bandit tp
+oxide.grant group default nteleportation.crafttpr - allow craft during tpr tp
+oxide.grant group default bank.use
+oxide.grant group default whoknocks.message
+oxide.grant group default whoknocks.knock
+oxide.grant group default signartist.url
+oxide.grant group default signartist.text
+oxide.grant group default signartist.restore
+
+
+oxide.grant group default signartist.raw
+oxide.grant group default signartist.restoreall
 
 oxide.grant group admin skins.admin
 oxide.grant group admin kits.admin
@@ -211,9 +245,55 @@ oxide.grant group admin adminpanel.allowed
 oxide.grant group admin removertool.admin
 oxide.grant group admin removertool.all
 oxide.grant group admin guardedcrate.use
-# https://www.corrosionhour.com/umod-permissions-guide/
-# https://www.gameserverkings.com/knowledge-base/rust/oxide-permissions-101/
+oxide.grant group admin copypaste.copy
+oxide.grant group admin copypaste.list
+oxide.grant group admin copypaste.paste
+oxide.grant group admin copypaste.paste
+oxide.grant group admin copypaste.undo
+oxide.grant group admin nteleportation.tp
+oxide.grant group admin nteleportation.tpt
+oxide.grant group admin nteleportation.tpconsole
+oxide.grant group admin spawnmodularcar.spawn.4
+oxide.grant group admin spawnmodularcar.engineparts.tier3
+oxide.grant group admin spawnmodularcar.presets
+oxide.grant group admin spawnmodularcar.presets.load
+oxide.grant group admin spawnmodularcar.presets.common
+oxide.grant group admin spawnmodularcar.presets.common.manage
+oxide.grant group admin spawnmodularcar.givecar
+oxide.grant group admin spawnmodularcar.fix
+oxide.grant group admin spawnmodularcar.fetch
+oxide.grant group admin spawnmodularcar.despawn
+oxide.grant group admin spawnmodularcar.autofuel
+oxide.grant group admin spawnmodularcar.autocodelock
+oxide.grant group admin spawnmodularcar.autokeylock
+oxide.grant group admin spawnmodularcar.autofilltankers
+oxide.grant group admin spawnmodularcar.autostartengine
+oxide.grant group admin whoknocks.admin
+oxide.grant group admin signartist.ignoreowner
+oxide.grant group admin signartist.ignorecd
+oxide.grant group admin npcvendingmapmarker.admin
+
+oxide.grant group dev skins.admin
+
+server.writecfg
 ```
+
+#### Give items
+
+```
+inventory.give “short name” “amount”
+inventory.giveto “player name” “short name” “amount”
+```
+
+#### References
+
+* https://www.corrosionhour.com/umod-permissions-guide/
+* https://www.gameserverkings.com/knowledge-base/rust/oxide-permissions-101/
+* https://www.corrosionhour.com/rust-item-list/
+* https://rust.fandom.com/wiki/Server_Commands
+* http://oxidemod.org/threads/updating-adding-without-restarting-server.28250/
+* https://www.corrosionhour.com/rust-give-command/
+
 
 ### Maps
 
