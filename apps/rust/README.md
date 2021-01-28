@@ -128,7 +128,6 @@ wget https://umod.org/games/rust/download/develop -O Oxide.Rust.zip
 unzip -o Oxide.Rust.zip
 rm Oxide.Rust.zip
 wget https://umod.org/extensions/discord/download -O ~/RustDedicated_Data/Managed/Oxide.Ext.Discord.dll
-wget http://playrust.io/latest -O ~/RustDedicated_Data/Managed/Oxide.Ext.RustIO.dll
 
 wget https://suparious.com/apps/rust/release-1.0.0.zip
 unzip release-1.0.0.zip
@@ -206,41 +205,64 @@ oxide.grant group default pets.wolf
 oxide.grant group default skins.use
 oxide.grant group default trade.use
 oxide.grant group default trade.accept
-
-oxide.grant group default nteleportation.home - /home, /sethome, /removehome
-oxide.grant group default nteleportation.deletehome - /home delete & /deletehome
-oxide.grant group default nteleportation.homehomes - /home homes & /homehomes
-oxide.grant group default nteleportation.importhomes - teleport.importhomes
-oxide.grant group default nteleportation.radiushome - /home radius & /radiushome
-oxide.grant group default nteleportation.tpb - /tpb
-oxide.grant group default nteleportation.tpr - /tpr
-oxide.grant group default nteleportation.tphome - /home tp and /tphome
-oxide.grant group default nteleportation.tptown - /town
-oxide.grant group default nteleportation.tpoutpost - /outpost
-oxide.grant group default nteleportation.tpbandit - /bandit
-oxide.grant group default nteleportation.tpn - /tpn
-oxide.grant group default nteleportation.tpl - /tpl
-oxide.grant group default nteleportation.tpremove - /tpremove
-oxide.grant group default nteleportation.tpsave - /tpsave
-oxide.grant group default nteleportation.wipehomes - /wipehomes
-oxide.grant group default nteleportation.crafthome - allow craft during home tp
-oxide.grant group default nteleportation.crafttown - allow craft during town tp
-oxide.grant group default nteleportation.craftoutpost - allow craft during outpost tp
-oxide.grant group default nteleportation.craftbandit - allow craft during bandit tp
-oxide.grant group default nteleportation.crafttpr - allow craft during tpr tp
+oxide.grant group default nteleportation.home
+oxide.grant group default nteleportation.deletehome
+oxide.grant group default nteleportation.homehomes
+oxide.grant group default nteleportation.importhomes
+oxide.grant group default nteleportation.radiushome
+oxide.grant group default nteleportation.tpb
+oxide.grant group default nteleportation.tpr
+oxide.grant group default nteleportation.tphome
+oxide.grant group default nteleportation.tptown
+oxide.grant group default nteleportation.tpoutpost
+oxide.grant group default nteleportation.tpbandit
+oxide.grant group default nteleportation.tpn
+oxide.grant group default nteleportation.tpl
+oxide.grant group default nteleportation.tpremove
+oxide.grant group default nteleportation.tpsave
+oxide.grant group default nteleportation.wipehomes
+oxide.grant group default nteleportation.crafthome
+oxide.grant group default nteleportation.crafttown
+oxide.grant group default nteleportation.craftoutpost
+oxide.grant group default nteleportation.craftbandit
+oxide.grant group default nteleportation.crafttpr
 oxide.grant group default bank.use
 oxide.grant group default whoknocks.message
 oxide.grant group default whoknocks.knock
 oxide.grant group default signartist.url
 oxide.grant group default signartist.text
 oxide.grant group default signartist.restore
-
-
+oxide.grant group default bgrade.all
 oxide.grant group default signartist.raw
 oxide.grant group default signartist.restoreall
+oxide.grant group default backpacks.use
+oxide.grant group default backpacks.keeponwipe
+oxide.grant group default backpacks.gui
+oxide.grant group default tcgui.use
+#oxide.grant group default guishop.use
+#oxide.grant group default guishop.vip
+oxide.grant group default itemskinrandomizer.use
+oxide.grant group default itemskinrandomizer.reskin
+oxide.grant group default workshopskinviewer.use
+oxide.grant group default vehicledeployedlocks.codelock.allvehicles
+oxide.grant group default vehicledeployedlocks.keylock.allvehicles
+oxide.grant group default discordmessages.report
+oxide.grant group default discordmessages.message
+oxide.grant group default twitch.admin
+oxide.grant group default carlockui.use.codelock
+oxide.grant group default carturrets.allmodules
+oxide.grant group default carturrets.deploy.inventory
+oxide.grant group default carturrets.deploy.command
+oxide.grant group default carturrets.limit.4
+oxide.grant group default storagemonitorcontrol.owner.all
+oxide.grant group default carcodelocks.ui
+oxide.grant group default respawnprotection.use
+oxide.grant group default randomrespawner.use
+oxide.grant group default guishop.use
 
 oxide.grant group admin skins.admin
 oxide.grant group admin kits.admin
+oxide.grant group admin betterchat.admin
 oxide.grant group admin adminpanel.allowed
 oxide.grant group admin removertool.admin
 oxide.grant group admin removertool.all
@@ -272,8 +294,21 @@ oxide.grant group admin whoknocks.admin
 oxide.grant group admin signartist.ignoreowner
 oxide.grant group admin signartist.ignorecd
 oxide.grant group admin npcvendingmapmarker.admin
+oxide.grant group admin bgrade.nores
+oxide.grant group admin backpacks.admin
+oxide.grant group admin guishop.admin
+oxide.grant group admin arkan.allowed
+oxide.grant group admin discordmessages.ban
+oxide.grant group admin guishop.vip
+oxide.grant group admin nodecay.use
 
 oxide.grant group dev skins.admin
+oxide.grant group dev tides.use
+oxide.grant group dev arkan.allowed
+oxide.grant group dev guishop.use
+oxide.grant group dev nodecay.use
+oxide.grant group dev kits.admin
+
 
 server.writecfg
 ```
@@ -300,4 +335,22 @@ inventory.giveto “player name” “short name” “amount”
 ```
 size: 6000
 seed: 7880972
+```
+
+## Backup config
+
+```bash
+echo "52 *    * * *   root    zip -9r /tmp/save.zip oxide server/rust/cfg" | sudo tee -a /etc/crontab
+echo "59 *    * * *   root    aws s3 cp /tmp/save.zip s3://suparious.com/rust-west-config.zip" | sudo tee -a /etc/crontab
+```
+
+## Updates
+
+```bash
+cd ~/
+steamcmd +login anonymous +force_install_dir ~/ +app_update 258550 validate +quit
+wget https://umod.org/games/rust/download/develop -O Oxide.Rust.zip
+unzip -o Oxide.Rust.zip
+rm Oxide.Rust.zip
+wget https://umod.org/extensions/discord/download -O ~/RustDedicated_Data/Managed/Oxide.Ext.Discord.dll
 ```
