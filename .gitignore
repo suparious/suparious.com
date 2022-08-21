@@ -24,3 +24,5 @@ terraform.tfstate.backup
 *.zip
 
 *.min.js
+package-lock.json
+package.json
