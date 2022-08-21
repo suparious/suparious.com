@@ -1,29 +1,23 @@
-# Golang
-src/github.com
-src/golang.org
-bin/*
-pkg/*
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# CodeShip
-build_args
-*.aes
-aws_deployment.dev
-dockercfg
-*_key.env
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# Terraform
-.terraform
-terraform.tfstate
-terraform.tfstate.backup
-*.pem
-*.lock.hcl
+# testing
+/coverage
 
-# Archives
-*.gz
-*.tar
-*.zip
+# production
+/build
 
-*.min.js
-package-lock.json
-package.json
-node_modules
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

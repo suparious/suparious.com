@@ -1,74 +1,70 @@
-# suparious.com
+# Getting Started with Create React App
 
-[![Codeship Status for suparious/suparious.com](https://app.codeship.com/projects/127d1d5a-2aae-4f8a-bc44-a9edba7d08e0/status?branch=master)](https://app.codeship.com/projects/422951)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Phase 1 Completed
+## Available Scripts
 
-As we approach a functional release, v0.1 marks the completion of the base structure that oulines the `concept`.
+In the project directory, you can run:
 
-### Installation
+### `npm start`
 
-- Setup CodeShip IAM user and access policy in AWS
-- jet encrypt IAM keys
-- configure `codeship-services.yml` to use the encrypted key
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
 ### Deployment
 
-example push to `dev`
-```bash
-git push --force -u origin HEAD:dev
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-```bash
-export GOPATH="C:\Users\shaun\source\suparious.com"
-export PORT=5000
-make clean
-make deps
-make check
-```
+### `npm run build` fails to minify
 
-### Testing
-
-Every branch push will get tested
-
-### Data architecture
-
-- [Google Docs](https://docs.google.com/spreadsheets/d/1RaLyNDdCC0CkLVTHnkBN9fb4hnhG1XJiUoRLqz7bLR8)
-
-### References
-
-- [bashstyle](https://github.com/progrium/bashstyle/blob/master/README.md)
-- [Standard Go Project Layout](https://github.com/golang-standards/project-layout/blob/master/README.md)
-- [How to Write Go Code](https://golang.org/doc/code.html)
-
-
-
-
-### FOR JOLI (To make Local branch checked in)
-
-### To check your own branch
-
-`git checkout -b joli`
-
-
-### After making changes to local branch
-```
-git status
-git add <filename>
-git commit -m "message goes here"
-git push -u origin joli
-
-```
-
-### TO DO FOR PROJECT 
-```
-Create an IAM user that has permissions S3 full access
-Follow codeship document to jet-encrypt the IAM keys
-Make a git-ignore file that doesnt commit the actual keys
-Run those comment out commands 
-
-aws s3 cp --acl public-read web/index.html s3://suparious.com
-aws s3 cp --acl public-read web/build.txt s3://suparious.com
-aws s3 website s3://suparious.com --index-document index.html
-aws s3 sync --delete --acl public-read web s3://suparious.com
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
